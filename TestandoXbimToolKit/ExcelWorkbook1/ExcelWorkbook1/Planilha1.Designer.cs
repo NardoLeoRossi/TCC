@@ -13,7 +13,7 @@ namespace ExcelWorkbook1 {
     
     
     /// 
-    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(1)]
+    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(2)]
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
     public sealed partial class Planilha1 : Microsoft.Office.Tools.Excel.WorksheetBase {
         

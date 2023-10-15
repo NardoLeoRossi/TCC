@@ -22,9 +22,25 @@ namespace ExcelWorkbook1
 
         public void Btn_LoadProejto_Click(Office.IRibbonControl control)
         {
+
+            var dlg = new OpenFileDialog();
+            dlg.Filter = "IFC Files|*.ifc;*.ifczip;*.ifcxml|Xbim Files|*.xbim";
+            dlg.Multiselect = false;
+            var result = dlg.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+
+                MessageBox.Show(dlg.FileName);
+
+
+
+
+            }
+            
             
 
-     
+
 
         }
 
