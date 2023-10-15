@@ -1,0 +1,664 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xbim.Presentation</name>
+    </assembly>
+    <members>
+        <member name="M:Xbim.Presentation.ColourRgbExtensions.ToColor(Xbim.Ifc4.Interfaces.IIfcColourRgb)">
+            <summary>
+              Converts a ColourRgb to a Windows Color
+            </summary>
+            <param name = "rgb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.ColourRgbExtensions.ToColor(Xbim.Ifc4.Interfaces.IIfcColourRgb,System.Double)">
+            <summary>
+              Converts to a Windows Color and applies the factor to each component
+            </summary>
+            <param name = "rgb"></param>
+            <param name = "factor"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Xbim.Presentation.DrawingControl3D">
+            <summary>
+              Interaction logic for DrawingControl3D.xaml
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.Highlighted_PropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            this method keeps meshes for TransHighlighted and Highlighted items in sync.
+            </summary>
+        </member>
+        <member name="F:Xbim.Presentation.DrawingControl3D.ExcludedTypes">
+            <summary>
+            The list of types that the engine will not consider in the generation of the scene, the exclusion code needs to be correctly implemented in the 
+            configued ILayerStyler for the exclusion to work.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.DrawingControl3D._viewBounds">
+            <summary>
+            Represent the extents of what is considered model. This depends on the selected region.
+            _viewBounds is transformed depending on ModelBounds and _modelTranslation. 
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.DrawingControl3D.Model3D">
+            <summary>
+            Gets or sets the model.
+            </summary>
+            <value>The model.</value>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.SetOpacity(System.Double)">
+            <summary>
+            Iterates all the materials to set the required opacity.
+            </summary>
+        </member>
+        <member name="F:Xbim.Presentation.DrawingControl3D._selectedEntityChangeTriggedBySelectionChange">
+            <summary>
+            _SelectedEntityChangeTriggedBySelectionChange is introduced a temporary fix to allow the multiple selection mode to continue working and propagating the SelectedEntityChanged event.
+            When selectedEntity is changed externally (value is false) then the Selection property is also impacted.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.HighlighSelected(Xbim.Common.IPersistEntity)">
+            <summary>
+            Executed when a new entity is selected
+            </summary>
+            <param name="newVal">If null represents the current selection if the multiple selection is enabled.</param>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.LoadGeometry(Xbim.Ifc.IfcStore,Xbim.Presentation.DrawingControl3D.ModelRefreshOptions)">
+            <summary>
+            Clears the current graphics and initiates the cascade of events that result in viewing the scene.
+            </summary>
+            <param name="model">The model</param>
+            <param name="options">The options (None by default)</param>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.UpdateGrid">
+            <summary>
+            get bounding box for the whole scene and adapt gridlines to the model units
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.AddLayerToDrawingControl(Xbim.ModelGeometry.Scene.XbimMeshLayer{Xbim.Presentation.WpfMeshGeometry3D,Xbim.Presentation.WpfMaterial},System.Boolean)">
+            <summary>
+            function that actually populates the geometry from the layer into the viewer meshes.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.ListItems(System.String)">
+            <summary>
+            Returns the list of nested visual elements.
+            </summary>
+            <param name="ofItem">Valid names are for instance: Opaques, Transparents, BuildingModel, cuttingGroup...</param>
+            <returns>IEnumerable names</returns>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.LayersTree">
+            <summary>
+            Useful for analysis and debugging purposes (invoked by Querying interface)
+            </summary>
+            <returns>A string tree of layers in scenes</returns>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.Hide(System.Int32)">
+            This mechanism for showing/hiding layers is not available any more, layerStylers have to be used instead
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.Show(Xbim.Common.Metadata.ExpressType)">
+            <summary>
+            This mechanism for showing/hiding layers is not reliable any more.
+            It might produce odd behaviours, as it relies on conventions that are not enforced in layerstylers.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.ViewHome">
+            <summary>
+            Zooms to the full scale of the model.
+            This fuction is fired when the reset of the camera is invoked.
+            It is called from RecalculateView if the parameters of RecalculateView don't exclude it.
+            It is also called from the WindowsUI Xplorer menu.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.ClipBaseSelected(System.Double)">
+            <summary>
+            This functions sets a cutting plane at a distance of delta over the base of the selected element.
+            It is useful when the selected element is obscured by elements surrounding it.
+            </summary>
+            <param name="delta">positive distance of the cutting plane above the base of the selected element.</param>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.ZoomTo(System.Windows.Media.Media3D.Rect3D,System.Boolean)">
+            <summary>
+            Zooms to a selected portion of the space.
+            </summary>
+            <param name="r3D">The box to be zoomed to</param>
+            <param name="doubleRectSize">Effectively doubles the size of the bounding box so to fit more space around it.</param>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.CreateThumbnail(Xbim.Ifc.IfcStore,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            create a bitmap image of the required size and saves to the specificed file. Title is printed if specified
+            </summary>
+            <param name="model"></param>
+            <param name="bmpFileName"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="title"></param>
+        </member>
+        <member name="M:Xbim.Presentation.DrawingControl3D.SetRegion(System.String,System.Boolean)">
+            <summary>
+            Sets the reguion to be displayed to the relevant area.
+            </summary>
+            <param name="rName"></param>
+            <param name="add"></param>
+            <returns>true if the region has ben found and set, false otherwise</returns>
+        </member>
+        <member name="T:Xbim.Presentation.DynamicProductSelectionControl">
+            <summary>
+            This class can compile the code in the runtime and can be used to select 
+            certain products with C# code;
+            </summary>
+            <summary>
+            DynamicProductSelectionControl
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.DynamicProductSelectionControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.FederatedModel.FederatedModelDialog">
+            <summary>
+            Interaction logic for fed1.xaml
+            </summary>
+            <summary>
+            FederatedModelDialog
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.FederatedModel.FederatedModelDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.FederatedModel.FederatedModelsGrid">
+            <summary>
+            FederatedModelsGrid
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.FederatedModel.FederatedModelsGrid.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.FederatedModel.XbimReferencedModelViewModel">
+            <summary>
+            This class can hold all data neccesary to create a XbimReferencedModel.
+            The purpose of this class is to hold data until it's complete enough to create a XbimReferencedModel. Once created, the model will be preserved in this object
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.FederatedModel.XbimReferencedModelViewModel.TryBuildAndAddTo(Xbim.Ifc.IfcStore)">
+            <summary>
+            Validates all data and creates model. 
+            </summary>
+            <returns>Returns XbimReferencedModel == null </returns>
+        </member>
+        <member name="T:Xbim.Presentation.HistoryCollection`1">
+            <summary>
+            A generic collection that keeps a limited amount of items in the list.
+            When the number of elements exceeds Size the oldest items are dropped.
+            </summary>
+            <typeparam name="T">The type of item to colelct</typeparam>
+        </member>
+        <member name="T:Xbim.Presentation.IfcMetaDataControl">
+            <summary>
+            Interaction logic for IfcMetaDataControl.xaml
+            </summary>
+            <summary>
+            IfcMetaDataControl
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.IfcMetaDataControl.OpenExternalLink(System.Object,System.Windows.Input.ExecutedRoutedEventArgs)">
+            <summary>
+            Event for clicking on external hyperlink
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Xbim.Presentation.IfcMetaDataControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.LayerStyling.BoundingBoxStyler">
+            <summary>
+            A class that just diplays bounding boxes of elements in the tree
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.BoundingBoxStyler.BuildScene(Xbim.Common.IModel,Xbim.Common.Geometry.XbimMatrix3D,System.Windows.Media.Media3D.ModelVisual3D,System.Windows.Media.Media3D.ModelVisual3D,System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{System.Type})">
+            <summary>
+            This version uses the new Geometry representation
+            </summary>
+            <param name="model"></param>
+            <param name="modelTransform">The transform to place the models geometry in the right place</param>
+            <param name="opaqueShapes"></param>
+            <param name="transparentShapes"></param>
+            <param name="isolateInstances">List of instances to be isolated</param>
+            <param name="hideInstances">List of instances to be hidden</param>
+            <param name="excludeTypes">List of type to exclude, by default excplict openings and spaces are excluded if exclude = null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.BoundingBoxStyler.GetSlicedBoxRepresentation(Xbim.Common.Geometry.XbimRect3D)">
+            <summary>
+            this is just three triangles per boundinng box at the moment.
+            </summary>
+            <param name="BoundingBox"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.ILayerStyler.Clear">
+            <summary>
+            Notifies the layerstyler that it need to clear any information retained on the model
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.LayerStyling.IndividualElementStyler.ColorState">
+            <summary>
+            Used in the blinking functions to determine the required visual appearence
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.LayerStyling.IndividualElementStyler.ColorState.DefaultSurface">
+            <summary>
+            If this flag is set the model will take the default style
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.LayerStyling.IndividualElementStyler.ColorState.PreserveAlpha">
+            <summary>
+            Determines if the object is to retain its transparency value
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.LayerStyling.IndividualElementStyler.ColorState.Color">
+            <summary>
+            If a specific color is desired, set it here
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.LayerStyling.IndividualElementStyler.BlinkStates">
+            <summary>
+            Private class to determine toggle states of entities that we wish to blink
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.IndividualElementStyler.BlinkStates.Tick">
+            <summary>
+            Increases the tick tally and determines if the state needs to be changed.
+            </summary>
+            <returns>true if the state needs to be changed</returns>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.IndividualElementStyler.BlinkStates.#ctor(Xbim.Presentation.LayerStyling.IndividualElementStyler.ColorState,Xbim.Presentation.LayerStyling.IndividualElementStyler.ColorState,System.Int32)">
+            <summary>
+            A colorsta
+            </summary>
+            <param name="state1"></param>
+            <param name="state2"></param>
+            <param name="baseTimerMultiplier"></param>
+        </member>
+        <member name="E:Xbim.Presentation.LayerStyling.IndividualElementStyler.BlinkHandled">
+            <summary>
+            This event is triggered every time the blinking function happens, 
+            but only if any objects have been toggled
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.IndividualElementStyler.BuildScene(Xbim.Common.IModel,Xbim.Common.Geometry.XbimMatrix3D,System.Windows.Media.Media3D.ModelVisual3D,System.Windows.Media.Media3D.ModelVisual3D,System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{System.Type})">
+            <summary>
+            This version uses the new Geometry representation
+            </summary>
+            <param name="model"></param>
+            <param name="modelTransform">The transform to place the models geometry in the right place</param>
+            <param name="destinationOpaques"></param>
+            <param name="destinationTransparents"></param>
+            <param name="isolateInstances">List of instances to be isolated</param>
+            <param name="hideInstances">List of instances to be hidden</param>
+            <param name="excludeTypes">List of type to exclude, by default excplict openings and spaces are excluded if exclude = null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.IndividualElementStyler.GetOpacity(Xbim.Presentation.WpfMeshGeometry3D)">
+            <summary>
+            Gets the alpha of the item's brush
+            </summary>
+            <returns>values in range 0..1</returns>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.IndividualElementStyler.SetMaterial(Xbim.Presentation.WpfMeshGeometry3D,Xbim.Presentation.WpfMaterial)">
+            <summary>
+            set color and adjust transparent/opaque bucket accordingly
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.IndividualElementStyler.RemoveAnimation(System.Boolean)">
+            <summary>
+            Clears all animations previously set;
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.RandomColorStyler.BuildScene(Xbim.Common.IModel,Xbim.Common.Geometry.XbimMatrix3D,System.Windows.Media.Media3D.ModelVisual3D,System.Windows.Media.Media3D.ModelVisual3D,System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{System.Type})">
+            <summary>
+            This version uses the new Geometry representation
+            </summary>
+            <param name="model"></param>
+            <param name="modelTransform">The transform to place the models geometry in the right place</param>
+            <param name="opaqueShapes"></param>
+            <param name="transparentShapes"></param>
+            <param name="isolateInstances">List of instances to be isolated</param>
+            <param name="hideInstances">List of instances to be hidden</param>
+            <param name="excludeTypes">List of type to exclude, by default excplict openings and spaces are excluded if exclude = null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.LayerStyling.SurfaceLayerStyler.BuildScene(Xbim.Common.IModel,Xbim.Common.Geometry.XbimMatrix3D,System.Windows.Media.Media3D.ModelVisual3D,System.Windows.Media.Media3D.ModelVisual3D,System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{Xbim.Common.IPersistEntity},System.Collections.Generic.List{System.Type})">
+            <summary>
+            This version uses the new Geometry representation
+            </summary>
+            <param name="model"></param>
+            <param name="modelTransform">The transform to place the models geometry in the right place</param>
+            <param name="opaqueShapes"></param>
+            <param name="transparentShapes"></param>
+            <param name="isolateInstances">List of instances to be isolated</param>
+            <param name="hideInstances">List of instances to be hidden</param>
+            <param name="excludeTypes">List of type to exclude, by default excplict openings and spaces are excluded if exclude = null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.MeshGeometry3DExtensions.Read(System.Windows.Media.Media3D.MeshGeometry3D,System.Byte[],System.Nullable{Xbim.Common.Geometry.XbimMatrix3D})">
+            <summary>
+            Reads a triangulated model from an array of bytes and adds the mesh to the current state
+             </summary>
+            <param name="m3D"></param>
+            <param name="mesh">byte array of XbimGeometryType.PolyhedronBinary  Data</param>
+            <param name="transform">Transforms the mesh to the new position if not null</param>
+        </member>
+        <member name="M:Xbim.Presentation.MeshGeometry3DExtensions.ReadIndex(System.IO.BinaryReader,System.Int32)">
+            <summary>
+            Reads a packed Xbim Triangle index from a stream
+            </summary>
+            <param name="br"></param>
+            <param name="maxVertexCount">The size of the maximum number of vertices in the stream, i.e. the biggest index value</param>
+            <returns></returns>
+        </member>
+        <member name="P:Xbim.Presentation.ModelDataProvider.Materials">
+            <summary>
+            Dictionary of shared materials, key is normally an Ifc object that the material represents
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.ModelGeomInfo.PolylineGeomInfo.SetToVisual(HelixToolkit.Wpf.MeshVisual3D)">
+            <summary>
+            Creates a rather ugly visual representatino of the polyline.
+            Fixed in size with respect to the model.
+            </summary>
+            <param name="highlighted">The destination visual component to replace the content of.</param>
+        </member>
+        <member name="M:Xbim.Presentation.ModelGeomInfo.PolylineGeomInfo.Count">
+            <summary>
+            The count of points in the polyline
+            </summary>
+            <returns>an integer positive or 0 value.</returns>
+        </member>
+        <member name="M:Xbim.Presentation.ModelGeomInfo.PolylineGeomInfo.Clear">
+            <summary>
+            Empties the point collection.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.ModelGeomInfo.PolylineGeomInfo.RemoveLast">
+            <summary>
+            Removes the last point in the underlying PointGeomInfo collection.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.Overlay.TextOverlay.UpdatePosition(Xbim.Presentation.XbimModelPositioningCollection,System.Nullable{Xbim.Common.Geometry.XbimPoint3D})">
+            <summary>
+            Updates the underlying graphics position in the model
+            </summary>
+            <param name="modelPositions">required wcs reference</param>
+            <param name="newPosition">If omitted refreshes the underlying graphics retaining its absolute value</param>
+        </member>
+        <member name="T:Xbim.Presentation.Properties.Resources">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Materials">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Materials ähnelt.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Object">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Object ähnelt.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Properties">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Properties ähnelt.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Quantities">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Quantities ähnelt.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Type">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Type ähnelt.
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.Properties.Resources.Verbose">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Verbose ähnelt.
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.SurfaceStyleExtensions.ToMaterial(Xbim.Ifc4.Interfaces.IIfcSurfaceStyle)">
+            <summary>
+              Returns a material corresponding to this surface style, materials are cached in the ModelDataProvider
+            </summary>
+            <param name = "sStyle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Xbim.Presentation.ToolTipContentProviderDelegate">
+            <summary>
+              returns the content of a ToolTip displayed for object tag
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.WpfExtensions.GrowBy(System.Windows.Media.Media3D.Point3DCollection,System.Int32)">
+            <summary>
+            Grows a collection by the required size
+            </summary>
+            <param name="pointColl"></param>
+            <param name="growSize"></param>
+        </member>
+        <member name="M:Xbim.Presentation.WpfExtensions.GrowBy(System.Windows.Media.Media3D.Vector3DCollection,System.Int32)">
+            <summary>
+            Grows a collection by the required size
+            </summary>
+            <param name="vecColl"></param>
+            <param name="growSize"></param>
+        </member>
+        <member name="M:Xbim.Presentation.WpfExtensions.GrowBy(System.Windows.Media.Int32Collection,System.Int32)">
+            <summary>
+            Grows a collection by the required size
+            </summary>
+            <param name="int32Coll"></param>
+            <param name="growSize"></param>
+        </member>
+        <member name="M:Xbim.Presentation.WpfMaterial.CreateMaterial(Xbim.Ifc.XbimColour)">
+            <summary>
+            Obsolete, please use constructor instead. 17 May 2017
+            </summary>
+            <param name="colour"></param>
+        </member>
+        <member name="M:Xbim.Presentation.WpfMeshGeometry3D.Add(Xbim.Common.Geometry.XbimGeometryData,System.Int16)">
+            <summary>
+            Do not use this rather create a XbimMeshGeometry3D first and construct this from it, appending WPF collections is slow
+            </summary>
+            <param name="geometryMeshData"></param>
+            <param name="modelId"></param>
+        </member>
+        <member name="M:Xbim.Presentation.WpfMeshGeometry3D.Read(System.Byte[],System.Nullable{Xbim.Common.Geometry.XbimMatrix3D})">
+            <summary>
+            Reads a triangulated mesh from a byte array 
+            </summary>
+            <param name="mesh">the binary data of the mesh</param>
+            <param name="transform">transforms the mesh if the matrix is not null</param>
+        </member>
+        <member name="M:Xbim.Presentation.WpfMeshGeometry3D.EndUpdate">
+            <summary>
+            Ends an update and freezes the geometry
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XbimMaterialProvider.#ctor(System.Windows.Media.Media3D.Material,System.Boolean)">
+            <summary>
+              Sets face and background Material to material
+            </summary>
+            <param name = "material"></param>
+            <param name="transparent"></param>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioning.SetSelectedRegionByName(System.String,System.Boolean)">
+            <summary>
+            Sets the region specified by name as selected.
+            </summary>
+            <param name="name">the region name to match</param>
+            <param name="add"></param>
+            <returns>true if the region has ben found and set, false otherwise</returns>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioning.#ctor(Xbim.Common.IModel)">
+            <summary>
+            Initialises the position class and 
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioning.PrepareTransform(Xbim.Common.Geometry.XbimVector3D)">
+            <summary>
+            Creates the transform based on the model dimensional unit (oneMeter)
+            </summary>
+            <param name="modelTranslation">The translation is expressed in meters.</param>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioningCollection.GetSelectedRegionsEnvelopeInMeters">
+            <summary>
+            The union of selected regions from all models
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioningCollection.SetSelectedRegionByName(System.String,System.Boolean)">
+            <summary>
+            Sets the region specified by name as selected.
+            </summary>
+            <param name="name">the region name to match</param>
+            <param name="add"></param>
+            <returns>true if the region has ben found and set, false otherwise</returns>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioningCollection.GetPoint(Xbim.Common.Geometry.XbimPoint3D)">
+            <summary>
+            Returns the transformed coordinates for the current positioning
+            </summary>
+            <param name="modelSpacePoint">The point in model space.</param>
+            <returns>the point in view space.</returns>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPositioningCollection.GetPointInverse(Xbim.Common.Geometry.XbimPoint3D)">
+            <summary>
+            Returns the inverse transformed coordinates for the current positioning
+            </summary>
+            <param name="viewSpace">the point in view space</param>
+            <returns>the point in model space</returns>
+        </member>
+        <member name="M:Xbim.Presentation.XbimModelPresentationExtensions.GetInstancesOfMaterial(Xbim.Common.IEntityCollection,Xbim.Ifc4.Interfaces.IIfcMaterialSelect,System.Boolean)">
+            <summary>
+            Returns the list of Object in a IfcRelAssociatesMaterial with the specified material select.
+            </summary>
+            <param name="instanceCollection"></param>
+            <param name="matSel">The material select to search.</param>
+            <param name="deepSearch">
+            True if the function needs to execute a deeper semantical analysis of the relations (it can expand the query result).
+            False if a direct analysis of explicit associations with the specific MaterialSet.
+            </param>
+        </member>
+        <member name="P:Xbim.Presentation.XbimScene`2.LayerColourMap">
+            <summary>
+            The colour map for this scene
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.#ctor(Xbim.Common.IModel)">
+            <summary>
+            Constructs a scene using the default IfcProductType colour map
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.#ctor(Xbim.Common.IModel,Xbim.Ifc.XbimColourMap)">
+            <summary>
+            Constructs a scene, using the specfified colourmap
+            </summary>
+            <param name="model"></param>
+            <param name="colourMap"></param>
+        </member>
+        <member name="P:Xbim.Presentation.XbimScene`2.Layers">
+            <summary>
+            Returns all the layers including sub layers of this scene
+            </summary>
+        </member>
+        <member name="P:Xbim.Presentation.XbimScene`2.VisibleLayers">
+            <summary>
+            Returns all layers and sublayers that have got some graphic content that is visible
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.Add(Xbim.ModelGeometry.Scene.XbimMeshLayer{`0,`1})">
+            <summary>
+            Add the layer to the scene
+            </summary>
+            <param name="layer"></param>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.HideAll">
+            <summary>
+            Makes all meshes in all layers in the scene Hidden
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.ShowAll">
+            <summary>
+            Makes all meshes in all layers in the scene Visible
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.GetMeshFragments(System.Int32)">
+            <summary>
+            Retrieves all the mesh fragments for the specified entity in this scene
+            </summary>
+            <param name="entityLabel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.GetMeshGeometry3D(Xbim.Common.IPersistEntity,System.Int16)">
+            <summary>
+            Gets the geometry of an entity building it up from layers.
+            </summary>
+            <param name="entity">The entity instance</param>
+            <param name="modelId"></param>
+        </member>
+        <member name="M:Xbim.Presentation.XbimScene`2.Balance">
+            <summary>
+            Resizes layers so that none has more than USHORT number of indices
+            </summary>
+        </member>
+        <member name="M:Xbim.Presentation.XplorerPluginSystem.IXbimXplorerPluginMasterWindow.GetLoggerFactory">
+            <summary>
+            Used during plugin binding to initiate the logging exchange.
+            </summary>
+        </member>
+        <member name="T:Xbim.Presentation.XplorerPluginSystem.PluginWindowUiContainerEnum">
+            <summary>
+            Defines the UI appearence of the element.
+            </summary>
+        </member>
+        <member name="F:Xbim.Presentation.XplorerPluginSystem.PluginWindowUiContainerEnum.LayoutDoc">
+            <summary>
+            The window will open in the central pane as a document
+            The object implementing this will have to be a UserControl.
+            </summary>
+        </member>
+        <member name="F:Xbim.Presentation.XplorerPluginSystem.PluginWindowUiContainerEnum.LayoutAnchorable">
+            <summary>
+            Use this for contextual toolboxes.
+            The object implementing this will have to be a UserControl.
+            </summary>
+        </member>
+        <member name="F:Xbim.Presentation.XplorerPluginSystem.PluginWindowUiContainerEnum.Dialog">
+            <summary>
+            Dialog is the mode for windows that keep focus throughout their lifespan
+            The object implementing this will have to be a Window.
+            </summary>
+        </member>
+    </members>
+</doc>

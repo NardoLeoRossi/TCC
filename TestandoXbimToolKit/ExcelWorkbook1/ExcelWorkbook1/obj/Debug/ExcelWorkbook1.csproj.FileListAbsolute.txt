@@ -1,0 +1,14 @@
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\ExcelWorkbook1.dll
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\ExcelWorkbook1.pdb
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\ExcelWorkbook1.dll.manifest
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\ExcelWorkbook1.vsto
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\ExcelWorkbook1.xlsx
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\bin\Debug\Microsoft.Office.Tools.Excel.v4.0.Utilities.dll
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.csproj.AssemblyReference.cache
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.Properties.Resources.resources
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.csproj.GenerateResource.cache
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.csproj.CoreCompileInputs.cache
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.csproj.CopyComplete
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.dll
+C:\dev\TCC\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.pdb
