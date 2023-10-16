@@ -26,3 +26,4 @@ C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWork
 C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.csproj.CopyComplete
 C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.dll
 C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.pdb
+C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\Xbim.WinformsSample.FormExample.resources

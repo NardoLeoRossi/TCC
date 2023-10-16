@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelWorkbook1", "ExcelWorkbook1\ExcelWorkbook1.csproj", "{05E4099E-35F4-4182-9243-82A46EBC85C5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xbim.Presentation", "..\..\..\TestandoXbimToolKit\ExcelWorkbook1\Xbim.Presentation\Xbim.Presentation.csproj", "{0E9C03C1-058E-4C66-AA7B-A3C906CBBACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{05E4099E-35F4-4182-9243-82A46EBC85C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05E4099E-35F4-4182-9243-82A46EBC85C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05E4099E-35F4-4182-9243-82A46EBC85C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9C03C1-058E-4C66-AA7B-A3C906CBBACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9C03C1-058E-4C66-AA7B-A3C906CBBACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9C03C1-058E-4C66-AA7B-A3C906CBBACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9C03C1-058E-4C66-AA7B-A3C906CBBACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
