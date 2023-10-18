@@ -27,3 +27,7 @@ C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWork
 C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.dll
 C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.pdb
 C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\Xbim.WinformsSample.FormExample.resources
+C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\WinformsAccessibleControl.baml
+C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\WinformsAccessibleControl.g.cs
+C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1_MarkupCompile.cache
+C:\dev\TCC\TestandoXbimToolKit\ExcelWorkbook1\ExcelWorkbook1\obj\Debug\ExcelWorkbook1.g.resources

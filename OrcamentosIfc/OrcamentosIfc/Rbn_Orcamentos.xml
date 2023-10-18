@@ -1,0 +1,14 @@
+﻿<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+	<ribbon>
+		<tabs>
+			<tab id="CustomTab" label="Orçamentos IFC">
+				<group id="Menu" label="Menu">
+					<button id="Btn_LoadProjeto" label="Carregar Projeto .IFC" onAction="Btn_LoadProejto_Click" imageMso="FileOpen" size="large"/>
+				</group>
+				<group id ="SINAPI" label="SINAPI">
+					<button id ="Btn_LoadSinapi" label="Carregar Tabela SINAPI" onAction="Btn_LoadSinapi_Click" imageMso="RefreshAll" size="large"/>
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>
