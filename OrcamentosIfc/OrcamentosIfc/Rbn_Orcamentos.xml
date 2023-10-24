@@ -8,7 +8,14 @@
 				<group id ="SINAPI" label="SINAPI">
 					<button id ="Btn_LoadSinapi" label="Carregar Tabela SINAPI" onAction="Btn_LoadSinapi_Click" imageMso="RefreshAll" size="large"/>
 				</group>
+				<group id ="Custear_Elementos" label="Custear Elementos">
+					<button id ="Btn_CustearElementos" label="Definir o custo dos Elementos" onAction="Btn_CustearElementos_Click" imageMso="DatabaseRelationships" size="large"/>
+				</group>
+				<group id ="Resultados" label="Visualizar Resultados">
+					<button id ="Btn_Resultados" label="Visualizar os Resultados" onAction="Btn_Resultados_Click" imageMso="ChartInsert" size="large"/>
+				</group>
 			</tab>
 		</tabs>
 	</ribbon>
 </customUI>
+

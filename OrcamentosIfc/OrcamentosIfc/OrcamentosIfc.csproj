@@ -284,7 +284,7 @@
     <Compile Include="Forms\WinformsAccessibleControl.xaml.cs">
       <DependentUpon>WinformsAccessibleControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menu\LoadSinapi.cs" />
+    <Compile Include="Sinapi\LoadSinapi.cs" />
     <Compile Include="Migrations\20231024193428_InicialCreate.cs" />
     <Compile Include="Migrations\20231024193428_InicialCreate.designer.cs">
       <DependentUpon>20231024193428_InicialCreate.cs</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using OrcamentosIfc.Forms;
+using OrcamentosIfc.Sinapi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +29,7 @@ namespace OrcamentosIfc
 
         public void Btn_LoadSinapi_Click(Office.IRibbonControl control)
         {
-
+            LoadSinapi.LoadNewSinapi();
         }
 
         #region Membros de IRibbonExtensibility
