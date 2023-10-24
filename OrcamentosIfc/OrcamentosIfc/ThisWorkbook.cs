@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Tools.Applications.Runtime;
+using OrcamentosIfc.Data;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 
@@ -10,8 +11,12 @@ namespace OrcamentosIfc
 {
     public partial class ThisWorkbook
     {
+        public AppDbContext DbContext { get; private set; }
+
         private void ThisWorkbook_Startup(object sender, System.EventArgs e)
         {
+            AppConfiguration.CreateDataBaseSqlLite();
+            DbContext= new AppDbContext();
         }
 
         private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)
