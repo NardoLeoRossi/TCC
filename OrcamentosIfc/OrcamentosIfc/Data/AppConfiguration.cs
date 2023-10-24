@@ -14,7 +14,7 @@ namespace OrcamentosIfc.Data
     {
         public static void CreateDataBaseSqlLite()
         {
-            if (!Directory.Exists(GetDataBasePath()))
+            if (!File.Exists(GetDataBasePath()))
             {
                 SQLiteConnection.CreateFile(GetDataBasePath());
                 var db = new AppDbContext();

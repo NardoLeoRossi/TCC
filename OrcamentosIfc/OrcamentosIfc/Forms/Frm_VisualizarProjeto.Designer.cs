@@ -31,8 +31,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.ControlHost = new System.Windows.Forms.Integration.ElementHost();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.ifcMetaDataControl1 = new Xbim.Presentation.IfcMetaDataControl();
             this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -66,7 +66,7 @@
             this.elementHost1.Size = new System.Drawing.Size(584, 727);
             this.elementHost1.TabIndex = 3;
             this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.ifcMetaDataControl1;
+            this.elementHost1.Child = null;
             // 
             // label1
             // 
@@ -77,6 +77,16 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(15, 574);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button1";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Frm_VisualizarProjeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -85,6 +95,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.ControlHost);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Frm_VisualizarProjeto";
             this.Text = "Frm_VisualizarProjeto";
@@ -99,5 +110,6 @@
         private System.Windows.Forms.Integration.ElementHost elementHost1;
         private Xbim.Presentation.IfcMetaDataControl ifcMetaDataControl1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
     }
 }

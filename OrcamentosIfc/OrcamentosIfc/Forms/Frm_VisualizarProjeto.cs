@@ -1,9 +1,11 @@
-﻿using System;
+﻿using OrcamentosIfc.Sinapi;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,12 +34,13 @@ namespace OrcamentosIfc.Forms
         private void _wpfControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             var ent = e.AddedItems[0] as IPersistEntity;
-            if (ent  == null)
+            if (ent == null)
                 label1.Text = "";
             else
+            {
+                ifcMetaDataControl1.SelectedEntity = ent;
                 label1.Text = ent.EntityLabel.ToString();
-
-            ifcMetaDataControl1.SelectedEntity = ent;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,6 +66,12 @@ namespace OrcamentosIfc.Forms
         private void ControlHost_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var frm = new Frm_SelecionarItemsSinapi();
+            frm.Show();
         }
     }
 }

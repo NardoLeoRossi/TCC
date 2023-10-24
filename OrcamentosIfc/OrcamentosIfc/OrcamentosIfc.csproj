@@ -284,6 +284,12 @@
     <Compile Include="Forms\WinformsAccessibleControl.xaml.cs">
       <DependentUpon>WinformsAccessibleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sinapi\Frm_SelecionarItemsSinapi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sinapi\Frm_SelecionarItemsSinapi.Designer.cs">
+      <DependentUpon>Frm_SelecionarItemsSinapi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sinapi\LoadSinapi.cs" />
     <Compile Include="Migrations\20231024193428_InicialCreate.cs" />
     <Compile Include="Migrations\20231024193428_InicialCreate.designer.cs">
@@ -316,6 +322,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Sinapi\Frm_SelecionarItemsSinapi.resx">
+      <DependentUpon>Frm_SelecionarItemsSinapi.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="OrcamentosIfc.xlsx" />
     <None Include="packages.config" />
