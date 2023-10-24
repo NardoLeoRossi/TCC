@@ -19,6 +19,10 @@ namespace OrcamentosIfc.Sinapi
     public static class LoadSinapi
     {
 
+        private static int _qntdInsumos = 0;
+        private static int _qntdAnalitico = 0;
+        private static int _qntdSintetico = 0;
+
         public static void LoadNewSinapi()
         {
             //Solicitar a seleção de uma pasta
@@ -30,6 +34,14 @@ namespace OrcamentosIfc.Sinapi
             if (result != DialogResult.OK) return;
 
             LoadSinapiData(dlg.FileName);
+
+            MessageBox.Show($"Processo Concluído.\n" +
+                $"Insumos: {_qntdInsumos} Registro Importados\n" +
+                $"Composições Sintéticas: {_qntdSintetico} Registros Importados\n" +
+                $"Composições Análiticas: {_qntdAnalitico} Registros Importados",
+                "Orçamentos IFC",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private static void LoadSinapiData(string pathZip)
@@ -86,6 +98,7 @@ namespace OrcamentosIfc.Sinapi
         {
             var connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={path};Extended Properties='Excel 12.0 Xml;HDR=YES;'";
             var dbContext = new AppDbContext();
+            _qntdInsumos = 0;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
@@ -104,6 +117,7 @@ namespace OrcamentosIfc.Sinapi
                             i.Preco = Convert.ToDecimal(dr[4].ToString());
                             i.Prefixo = prefix;
                             dbContext.Insumos.Add(i);
+                            _qntdInsumos++;
                         }
                     }
                     dbContext.SaveChanges();
@@ -115,6 +129,7 @@ namespace OrcamentosIfc.Sinapi
         {
             var connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={path};Extended Properties='Excel 12.0 Xml;HDR=YES;'";
             var dbContext = new AppDbContext();
+            _qntdSintetico = 0;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
@@ -141,6 +156,7 @@ namespace OrcamentosIfc.Sinapi
                             c.Prefixo = prefix;
 
                             dbContext.ComposicoesSinteticas.Add(c);
+                            _qntdSintetico++;
                         }
                     }
                     dbContext.SaveChanges();
@@ -152,6 +168,7 @@ namespace OrcamentosIfc.Sinapi
         {
             var connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={path};Extended Properties='Excel 12.0 Xml;HDR=YES;'";
             var dbContext = new AppDbContext();
+            _qntdAnalitico= 0;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
@@ -185,6 +202,7 @@ namespace OrcamentosIfc.Sinapi
                             c.Vinculo = dr[30].ToString();
 
                             dbContext.ComposicoesAnaliticas.Add(c);
+                            _qntdAnalitico++;
                         }
                     }
                     dbContext.SaveChanges();
