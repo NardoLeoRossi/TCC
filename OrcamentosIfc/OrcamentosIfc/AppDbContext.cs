@@ -15,6 +15,7 @@ namespace OrcamentosIfc
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source = " + AppConfiguration.GetDataBasePath());
+            optionsBuilder.EnableSensitiveDataLogging();
         }
 
         public DbSet<Insumo> Insumos { get; set; }

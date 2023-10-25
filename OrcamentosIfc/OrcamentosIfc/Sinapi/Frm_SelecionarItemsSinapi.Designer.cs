@@ -34,13 +34,14 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Btn_InsumosAdd = new System.Windows.Forms.Button();
             this.Pnl_InsumosFiltros = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.Cbb_Tipo = new System.Windows.Forms.ComboBox();
-            this.Cbb_Classe = new System.Windows.Forms.ComboBox();
+            this.Btn_SinteticasAdd = new System.Windows.Forms.Button();
+            this.Cbb_SinteticaTipo = new System.Windows.Forms.ComboBox();
+            this.Cbb_SinteticaClasse = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.Pnl_Sinteticas = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,23 +52,42 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Btn_AnaliticasAdd = new System.Windows.Forms.Button();
+            this.Cbb_AnaliticaTipo = new System.Windows.Forms.ComboBox();
+            this.Cbb_AnaliticaClasse = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.Pnl_Analiticas = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Lst_Analiticas = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.LBL_Referência = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // Lst_Insumos
             // 
+            this.Lst_Insumos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Lst_Insumos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
+            this.Lst_Insumos.FullRowSelect = true;
+            this.Lst_Insumos.GridLines = true;
             this.Lst_Insumos.HideSelection = false;
             this.Lst_Insumos.Location = new System.Drawing.Point(5, 41);
+            this.Lst_Insumos.MultiSelect = false;
             this.Lst_Insumos.Name = "Lst_Insumos";
             this.Lst_Insumos.Size = new System.Drawing.Size(980, 503);
             this.Lst_Insumos.TabIndex = 0;
@@ -116,6 +136,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.Btn_InsumosAdd);
             this.tabPage1.Controls.Add(this.Pnl_InsumosFiltros);
             this.tabPage1.Controls.Add(this.Lst_Insumos);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -126,8 +147,21 @@
             this.tabPage1.Text = "Insumos";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // Btn_InsumosAdd
+            // 
+            this.Btn_InsumosAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_InsumosAdd.Location = new System.Drawing.Point(910, 547);
+            this.Btn_InsumosAdd.Name = "Btn_InsumosAdd";
+            this.Btn_InsumosAdd.Size = new System.Drawing.Size(75, 23);
+            this.Btn_InsumosAdd.TabIndex = 13;
+            this.Btn_InsumosAdd.Text = "Adicionar";
+            this.Btn_InsumosAdd.UseVisualStyleBackColor = true;
+            this.Btn_InsumosAdd.Click += new System.EventHandler(this.Btn_InsumosAdd_Click);
+            // 
             // Pnl_InsumosFiltros
             // 
+            this.Pnl_InsumosFiltros.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Pnl_InsumosFiltros.Location = new System.Drawing.Point(5, 5);
             this.Pnl_InsumosFiltros.Name = "Pnl_InsumosFiltros";
             this.Pnl_InsumosFiltros.Size = new System.Drawing.Size(975, 30);
@@ -135,8 +169,9 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.Cbb_Tipo);
-            this.tabPage2.Controls.Add(this.Cbb_Classe);
+            this.tabPage2.Controls.Add(this.Btn_SinteticasAdd);
+            this.tabPage2.Controls.Add(this.Cbb_SinteticaTipo);
+            this.tabPage2.Controls.Add(this.Cbb_SinteticaClasse);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.Pnl_Sinteticas);
             this.tabPage2.Controls.Add(this.label2);
@@ -149,21 +184,32 @@
             this.tabPage2.Text = "Composições Sintéticas";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // Cbb_Tipo
+            // Btn_SinteticasAdd
             // 
-            this.Cbb_Tipo.FormattingEnabled = true;
-            this.Cbb_Tipo.Location = new System.Drawing.Point(311, 23);
-            this.Cbb_Tipo.Name = "Cbb_Tipo";
-            this.Cbb_Tipo.Size = new System.Drawing.Size(350, 21);
-            this.Cbb_Tipo.TabIndex = 4;
+            this.Btn_SinteticasAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_SinteticasAdd.Location = new System.Drawing.Point(910, 547);
+            this.Btn_SinteticasAdd.Name = "Btn_SinteticasAdd";
+            this.Btn_SinteticasAdd.Size = new System.Drawing.Size(75, 23);
+            this.Btn_SinteticasAdd.TabIndex = 12;
+            this.Btn_SinteticasAdd.Text = "Adicionar";
+            this.Btn_SinteticasAdd.UseVisualStyleBackColor = true;
+            this.Btn_SinteticasAdd.Click += new System.EventHandler(this.Btn_SinteticasAdd_Click);
             // 
-            // Cbb_Classe
+            // Cbb_SinteticaTipo
             // 
-            this.Cbb_Classe.FormattingEnabled = true;
-            this.Cbb_Classe.Location = new System.Drawing.Point(5, 23);
-            this.Cbb_Classe.Name = "Cbb_Classe";
-            this.Cbb_Classe.Size = new System.Drawing.Size(300, 21);
-            this.Cbb_Classe.TabIndex = 4;
+            this.Cbb_SinteticaTipo.FormattingEnabled = true;
+            this.Cbb_SinteticaTipo.Location = new System.Drawing.Point(311, 23);
+            this.Cbb_SinteticaTipo.Name = "Cbb_SinteticaTipo";
+            this.Cbb_SinteticaTipo.Size = new System.Drawing.Size(350, 21);
+            this.Cbb_SinteticaTipo.TabIndex = 4;
+            // 
+            // Cbb_SinteticaClasse
+            // 
+            this.Cbb_SinteticaClasse.FormattingEnabled = true;
+            this.Cbb_SinteticaClasse.Location = new System.Drawing.Point(5, 23);
+            this.Cbb_SinteticaClasse.Name = "Cbb_SinteticaClasse";
+            this.Cbb_SinteticaClasse.Size = new System.Drawing.Size(300, 21);
+            this.Cbb_SinteticaClasse.TabIndex = 4;
             // 
             // label3
             // 
@@ -176,6 +222,8 @@
             // 
             // Pnl_Sinteticas
             // 
+            this.Pnl_Sinteticas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Pnl_Sinteticas.Location = new System.Drawing.Point(5, 50);
             this.Pnl_Sinteticas.Name = "Pnl_Sinteticas";
             this.Pnl_Sinteticas.Size = new System.Drawing.Size(975, 30);
@@ -192,14 +240,20 @@
             // 
             // Lst_Sinteticas
             // 
+            this.Lst_Sinteticas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Lst_Sinteticas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
+            this.Lst_Sinteticas.FullRowSelect = true;
+            this.Lst_Sinteticas.GridLines = true;
             this.Lst_Sinteticas.HideSelection = false;
             this.Lst_Sinteticas.Location = new System.Drawing.Point(5, 86);
+            this.Lst_Sinteticas.MultiSelect = false;
             this.Lst_Sinteticas.Name = "Lst_Sinteticas";
             this.Lst_Sinteticas.Size = new System.Drawing.Size(980, 458);
             this.Lst_Sinteticas.TabIndex = 2;
@@ -234,13 +288,122 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.Btn_AnaliticasAdd);
+            this.tabPage3.Controls.Add(this.Cbb_AnaliticaTipo);
+            this.tabPage3.Controls.Add(this.Cbb_AnaliticaClasse);
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.Pnl_Analiticas);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.Lst_Analiticas);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(992, 573);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "Composições Analiticas";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // Btn_AnaliticasAdd
+            // 
+            this.Btn_AnaliticasAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_AnaliticasAdd.Location = new System.Drawing.Point(910, 547);
+            this.Btn_AnaliticasAdd.Name = "Btn_AnaliticasAdd";
+            this.Btn_AnaliticasAdd.Size = new System.Drawing.Size(75, 23);
+            this.Btn_AnaliticasAdd.TabIndex = 11;
+            this.Btn_AnaliticasAdd.Text = "Adicionar";
+            this.Btn_AnaliticasAdd.UseVisualStyleBackColor = true;
+            this.Btn_AnaliticasAdd.Click += new System.EventHandler(this.Btn_AnaliticasAdd_Click);
+            // 
+            // Cbb_AnaliticaTipo
+            // 
+            this.Cbb_AnaliticaTipo.FormattingEnabled = true;
+            this.Cbb_AnaliticaTipo.Location = new System.Drawing.Point(311, 23);
+            this.Cbb_AnaliticaTipo.Name = "Cbb_AnaliticaTipo";
+            this.Cbb_AnaliticaTipo.Size = new System.Drawing.Size(350, 21);
+            this.Cbb_AnaliticaTipo.TabIndex = 9;
+            // 
+            // Cbb_AnaliticaClasse
+            // 
+            this.Cbb_AnaliticaClasse.FormattingEnabled = true;
+            this.Cbb_AnaliticaClasse.Location = new System.Drawing.Point(5, 23);
+            this.Cbb_AnaliticaClasse.Name = "Cbb_AnaliticaClasse";
+            this.Cbb_AnaliticaClasse.Size = new System.Drawing.Size(300, 21);
+            this.Cbb_AnaliticaClasse.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(314, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Tipo";
+            // 
+            // Pnl_Analiticas
+            // 
+            this.Pnl_Analiticas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Pnl_Analiticas.Location = new System.Drawing.Point(5, 50);
+            this.Pnl_Analiticas.Name = "Pnl_Analiticas";
+            this.Pnl_Analiticas.Size = new System.Drawing.Size(975, 30);
+            this.Pnl_Analiticas.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Classe";
+            // 
+            // Lst_Analiticas
+            // 
+            this.Lst_Analiticas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Lst_Analiticas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader15});
+            this.Lst_Analiticas.FullRowSelect = true;
+            this.Lst_Analiticas.GridLines = true;
+            this.Lst_Analiticas.HideSelection = false;
+            this.Lst_Analiticas.Location = new System.Drawing.Point(5, 86);
+            this.Lst_Analiticas.MultiSelect = false;
+            this.Lst_Analiticas.Name = "Lst_Analiticas";
+            this.Lst_Analiticas.Size = new System.Drawing.Size(980, 458);
+            this.Lst_Analiticas.TabIndex = 7;
+            this.Lst_Analiticas.UseCompatibleStateImageBehavior = false;
+            this.Lst_Analiticas.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Código";
+            this.columnHeader11.Width = 92;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Descrição";
+            this.columnHeader12.Width = 596;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "UN";
+            this.columnHeader13.Width = 50;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Origem Preço";
+            this.columnHeader14.Width = 128;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "Custo Total";
+            this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader15.Width = 94;
             // 
             // label1
             // 
@@ -274,6 +437,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,7 +447,6 @@
         #endregion
 
         private System.Windows.Forms.ListView Lst_Insumos;
-        private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -294,8 +458,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LBL_Referência;
         private System.Windows.Forms.Panel Pnl_InsumosFiltros;
-        private System.Windows.Forms.ComboBox Cbb_Tipo;
-        private System.Windows.Forms.ComboBox Cbb_Classe;
+        private System.Windows.Forms.ComboBox Cbb_SinteticaTipo;
+        private System.Windows.Forms.ComboBox Cbb_SinteticaClasse;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel Pnl_Sinteticas;
         private System.Windows.Forms.Label label2;
@@ -306,5 +470,19 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ComboBox Cbb_AnaliticaTipo;
+        private System.Windows.Forms.ComboBox Cbb_AnaliticaClasse;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel Pnl_Analiticas;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListView Lst_Analiticas;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.Button Btn_InsumosAdd;
+        private System.Windows.Forms.Button Btn_SinteticasAdd;
+        private System.Windows.Forms.Button Btn_AnaliticasAdd;
     }
 }

@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
+using MoreLinq;
+using System.IO.Packaging;
+using OrcamentosIfc.Utils;
 
 namespace OrcamentosIfc.Sinapi
 {
@@ -31,6 +35,7 @@ namespace OrcamentosIfc.Sinapi
         {
             Insumos_Configure();
             Sinteticas_Configure();
+            Analiticas_Configure();
 
             LoadComboboxes();
         }
@@ -86,6 +91,13 @@ namespace OrcamentosIfc.Sinapi
             }
         }
 
+        private void Btn_InsumosAdd_Click(object sender, EventArgs e)
+        {
+            if (Lst_Insumos.SelectedItems.Count == 0) return;
+            var insumo = (Insumo)Lst_Insumos.SelectedItems[0].Tag;
+            OnItemSelecionado(new CustomEventArgs(insumo));
+        }
+
         #endregion
 
         #region Composições Sintéticas
@@ -96,8 +108,8 @@ namespace OrcamentosIfc.Sinapi
         {
             CriarFiltros(Lst_Sinteticas, Pnl_Sinteticas, TbSinteticasFiltro_TextChanged);
             Sinteticas_Load();
-            Cbb_Classe.TextChanged += TbSinteticasFiltro_TextChanged;
-            Cbb_Tipo.TextChanged += TbSinteticasFiltro_TextChanged;
+            Cbb_SinteticaClasse.TextChanged += TbSinteticasFiltro_TextChanged;
+            Cbb_SinteticaTipo.TextChanged += TbSinteticasFiltro_TextChanged;
         }
 
         private void TbSinteticasFiltro_TextChanged(object sender, EventArgs e)
@@ -107,8 +119,8 @@ namespace OrcamentosIfc.Sinapi
 
         private void Sinteticas_Load()
         {
-            var classe = Cbb_Classe.Text.ToUpper();
-            var tipo = Cbb_Tipo.Text.ToUpper();
+            var classe = Cbb_SinteticaClasse.Text.ToUpper();
+            var tipo = Cbb_SinteticaTipo.Text.ToUpper();
 
             var codigo = ((TextBox)Lst_Sinteticas.Columns[0].Tag).Text.ToUpper();
             var descricao = ((TextBox)Lst_Sinteticas.Columns[1].Tag).Text.ToUpper();
@@ -118,7 +130,9 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from s in _appdbContext.ComposicoesSinteticas
                          where
-                          (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
+                         s.DescricaoClasse.ToUpper() == classe
+                         && s.DescricaoTipo1.ToUpper() == tipo
+                          && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
                           && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
                           && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
                           && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
@@ -142,6 +156,80 @@ namespace OrcamentosIfc.Sinapi
                 item.SubItems.Add(s.CustoTotal.ToString());
                 item.Tag = s;
             }
+        }
+
+        private void Btn_SinteticasAdd_Click(object sender, EventArgs e)
+        {
+            if (Lst_Sinteticas.SelectedItems.Count == 0) return;
+            var comp = (ComposicaoSintetica)Lst_Sinteticas.SelectedItems[0].Tag;
+            OnItemSelecionado(new CustomEventArgs(comp));
+        }
+
+        #endregion
+
+        #region Composições analiticas
+
+        private List<ComposicaoAnalitica> _analiticas;
+
+        private void Analiticas_Configure()
+        {
+            CriarFiltros(Lst_Analiticas, Pnl_Analiticas, TbAnaliticasFiltro_TextChanged);
+            Analiticas_Load();
+            Cbb_AnaliticaClasse.TextChanged += TbAnaliticasFiltro_TextChanged;
+            Cbb_AnaliticaTipo.TextChanged += TbAnaliticasFiltro_TextChanged;
+        }
+
+        private void TbAnaliticasFiltro_TextChanged(object sender, EventArgs e)
+        {
+            Analiticas_Load();
+        }
+
+        private void Analiticas_Load()
+        {
+            var classe = Cbb_AnaliticaClasse.Text.ToUpper();
+            var tipo = Cbb_AnaliticaTipo.Text.ToUpper();
+
+            var codigo = ((TextBox)Lst_Analiticas.Columns[0].Tag).Text.ToUpper();
+            var descricao = ((TextBox)Lst_Analiticas.Columns[1].Tag).Text.ToUpper();
+            var unidade = ((TextBox)Lst_Analiticas.Columns[2].Tag).Text.ToUpper();
+            var origemPreceo = ((TextBox)Lst_Analiticas.Columns[3].Tag).Text.ToUpper();
+            var preco = ((TextBox)Lst_Analiticas.Columns[4].Tag).Text.ToUpper();
+
+            var result = from s in _appdbContext.ComposicoesAnaliticas
+                         where
+                         s.DescricaoClasse.ToUpper() == classe
+                         && s.DescricaoTipo1.ToUpper() == tipo
+                          && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
+                          && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
+                          && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
+                          && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
+                          && (s.CustoTotal.ToString().Contains(preco) || preco == "")
+                         select s;
+
+            _analiticas = result.DistinctBy(c => c.CodigoComposicao).Take(250).ToList();
+
+            Analiticas_Show();
+        }
+
+        private void Analiticas_Show()
+        {
+            Lst_Analiticas.Items.Clear();
+            foreach (var s in _analiticas)
+            {
+                var item = Lst_Analiticas.Items.Add(s.CodigoComposicao);
+                item.SubItems.Add(s.DescricaoComposicao);
+                item.SubItems.Add(s.Unidade);
+                item.SubItems.Add(s.OrigemPreco);
+                item.SubItems.Add(s.CustoTotal.ToString());
+                item.Tag = s;
+            }
+        }
+
+        private void Btn_AnaliticasAdd_Click(object sender, EventArgs e)
+        {
+            if (Lst_Analiticas.SelectedItems.Count == 0) return;
+            var comp = (ComposicaoAnalitica)Lst_Analiticas.SelectedItems[0].Tag;
+            OnItemSelecionado(new CustomEventArgs(comp));
         }
 
         #endregion
@@ -191,14 +279,70 @@ namespace OrcamentosIfc.Sinapi
 
         private void LoadComboboxes()
         {
-            var classes = _appdbContext.ComposicoesSinteticas.Select(s => s.DescricaoClasse).Distinct().ToList();
-            var tipos = _appdbContext.ComposicoesSinteticas.Select(s => s.DescricaoTipo1).Distinct().ToList();
-            Cbb_Classe.Items.AddRange(classes.ToArray());
-            Cbb_Classe.SelectedIndex = 0;
-            Cbb_Tipo.Items.AddRange(tipos.ToArray());
-            Cbb_Tipo.SelectedIndex = 0;
+            Cbb_SinteticaClasse.SelectedIndexChanged += LoadComboboxTipo;
+            Cbb_AnaliticaClasse.SelectedIndexChanged += LoadComboboxTipo;
+
+            Cbb_SinteticaClasse.Tag = Cbb_SinteticaTipo;
+            Cbb_AnaliticaClasse.Tag = Cbb_AnaliticaTipo;
+
+            //Criar tupla sinteticas
+            var tuplaS = _appdbContext.ComposicoesSinteticas
+                            .Select(s => Tuple.Create(s.DescricaoClasse, s.DescricaoTipo1));
+            var classesS = tuplaS
+                                .Select(s => s.Item1)
+                                .DistinctBy(s => s.ToString())
+                                .ToList()
+                                .OrderBy(s => s.ToString());
+            Cbb_SinteticaClasse.Items.AddRange(classesS.ToArray());
+            Cbb_SinteticaTipo.Tag = tuplaS.ToList();
+
+            //Criar tupla analiticas
+            var tuplaA = _appdbContext.ComposicoesAnaliticas
+                            .Select(a => Tuple.Create(a.DescricaoClasse, a.DescricaoTipo1));
+            var classesA = tuplaA
+                                .Select(a => a.Item1)
+                                .DistinctBy(a => a.ToString())
+                                .ToList()
+                                .OrderBy(a => a.ToString());
+            Cbb_AnaliticaClasse.Items.AddRange(classesA.ToArray());
+            Cbb_AnaliticaTipo.Tag = tuplaA.ToList();
+
+            Cbb_SinteticaClasse.SelectedIndex = 0;
+            Cbb_AnaliticaClasse.SelectedIndex = 0;
         }
 
-        #endregion 
+        private void LoadComboboxTipo(object sender, EventArgs e)
+        {
+            var cbClasse = (ComboBox)sender;
+            var cb = (ComboBox)cbClasse.Tag;
+            var tuple = (List<Tuple<string, string>>)cb.Tag;
+
+            var t = (from c in tuple
+                     where
+                        c.Item1 == cbClasse.Text.ToString()
+                     select c)
+                    .Select(c => c.Item2)
+                    .Distinct()
+                    .ToList();
+
+            t = t.OrderBy(c => c.ToString()).ToList();
+
+            cb.Items.Clear();
+            cb.Items.AddRange(t.ToArray());
+            cb.SelectedIndex = -1;
+            if (cb.Items.Count > 0) cb.SelectedIndex = 0;
+        }
+
+        #endregion
+
+        public delegate void ItemSelecionadoEventArgs(object sender, CustomEventArgs e);
+
+        public event ItemSelecionadoEventArgs ItemSelecionado;
+
+        protected virtual void OnItemSelecionado(CustomEventArgs e)
+        {
+            var handler = ItemSelecionado;
+            if (handler != null) handler(this, e);
+        }
     }
 }
