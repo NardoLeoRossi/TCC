@@ -1,4 +1,6 @@
-﻿using OrcamentosIfc.Forms;
+﻿using Microsoft.Office.Core;
+using MoreLinq;
+using OrcamentosIfc.Forms;
 using OrcamentosIfc.Sinapi;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
 
@@ -17,10 +20,41 @@ namespace OrcamentosIfc
     public class Rbn_Orcamentos : Office.IRibbonExtensibility
     {
         private Office.IRibbonUI ribbon;
+        private AppDbContext _appDbContext;
 
         public Rbn_Orcamentos()
         {
+            _appDbContext = new AppDbContext();
+            LoadCombobox();
         }
+
+        private List<string> _periodos;
+
+        private void LoadCombobox()
+        {
+            _periodos = _appDbContext.Insumos
+                                .Select(x => x.Prefixo)
+                                .DistinctBy(x => x.ToString())
+                                .ToList()
+                                .OrderBy(x => x.ToString())
+                                .ToList();
+        }
+
+        public int Cbb_PeriodoSinapi_GetItemCount(IRibbonControl control)
+        {
+            return _periodos.Count;
+        }
+
+        public string Cbb_PeriodoSinapi_GetItemLabel(IRibbonControl control, int index)
+        {
+            return _periodos[index];
+        }
+
+        public void Cbb_PeriodoSinapi_OnChange(IRibbonControl control, string text)
+        {
+            Parametros.PeriodoSinapi = text;
+        }
+
         public void Btn_LoadProejto_Click(Office.IRibbonControl control)
         {
             var frm = new Frm_VisualizarProjeto();

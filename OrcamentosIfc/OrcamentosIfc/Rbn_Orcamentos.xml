@@ -14,6 +14,14 @@
 				<group id ="Resultados" label="Visualizar Resultados">
 					<button id ="Btn_Resultados" label="Visualizar os Resultados" onAction="Btn_Resultados_Click" imageMso="ChartInsert" size="large"/>
 				</group>
+				<group id ="Parametros" label="Parâmetros">
+					<comboBox id="Cbb_PeriodoSinapi" 
+								label="Período Sinapi"								
+								getItemCount="Cbb_PeriodoSinapi_GetItemCount" 
+								getItemLabel="Cbb_PeriodoSinapi_GetItemLabel" 
+								onChange="Cbb_PeriodoSinapi_OnChange"/>
+					<comboBox id="Cbb_Projeto" label="Projeto Selecionado"/>
+				</group>
 			</tab>
 		</tabs>
 	</ribbon>

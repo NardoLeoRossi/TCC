@@ -66,7 +66,8 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from i in insumos
                          where
-                          (i.Codigo.ToUpper().Contains(codigo) || codigo == "")
+                         (i.Prefixo == Parametros.PeriodoSinapi)
+                          && (i.Codigo.ToUpper().Contains(codigo) || codigo == "")
                           && (i.Descricao.ToUpper().Contains(descricao) || descricao == "")
                           && (i.Unidade.ToUpper().Contains(unidade) || unidade == "")
                           && (i.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
@@ -130,13 +131,14 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from s in _appdbContext.ComposicoesSinteticas
                          where
-                         s.DescricaoClasse.ToUpper() == classe
-                         && s.DescricaoTipo1.ToUpper() == tipo
-                          && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
-                          && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
-                          && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
-                          && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
-                          && (s.CustoTotal.ToString().Contains(preco) || preco == "")
+                            (s.Prefixo == Parametros.PeriodoSinapi)
+                            && s.DescricaoClasse.ToUpper() == classe
+                            && s.DescricaoTipo1.ToUpper() == tipo
+                            && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
+                            && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
+                            && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
+                            && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
+                            && (s.CustoTotal.ToString().Contains(preco) || preco == "")
                          select s;
 
             _sinteticas = result.Take(250).ToList();
@@ -197,13 +199,14 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from s in _appdbContext.ComposicoesAnaliticas
                          where
-                         s.DescricaoClasse.ToUpper() == classe
-                         && s.DescricaoTipo1.ToUpper() == tipo
-                          && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
-                          && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
-                          && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
-                          && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
-                          && (s.CustoTotal.ToString().Contains(preco) || preco == "")
+                            (s.Prefixo == Parametros.PeriodoSinapi)
+                            && s.DescricaoClasse.ToUpper() == classe
+                            && s.DescricaoTipo1.ToUpper() == tipo
+                            && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
+                            && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
+                            && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
+                            && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
+                            && (s.CustoTotal.ToString().Contains(preco) || preco == "")
                          select s;
 
             _analiticas = result.DistinctBy(c => c.CodigoComposicao).Take(250).ToList();
