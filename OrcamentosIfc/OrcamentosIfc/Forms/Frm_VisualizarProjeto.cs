@@ -1,9 +1,12 @@
-﻿using OrcamentosIfc.Sinapi;
+﻿using OrcamentosIfc.Data;
+using OrcamentosIfc.IFC;
+using OrcamentosIfc.Sinapi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
@@ -20,8 +23,6 @@ namespace OrcamentosIfc.Forms
 
         private WinformsAccessibleControl _wpfControl;
 
-        int starting = -1;
-
         public Frm_VisualizarProjeto()
         {
             InitializeComponent();
@@ -29,6 +30,18 @@ namespace OrcamentosIfc.Forms
             _wpfControl = new WinformsAccessibleControl();
             _wpfControl.SelectionChanged += _wpfControl_SelectionChanged;
             ControlHost.Child = _wpfControl;
+
+            LoadProjetoModel();
+        }
+
+        private void LoadProjetoModel()
+        {
+            var path = Path.Combine(AppConfiguration.GetProjectsPath(), Parametros.ProjetoSelecionado);
+            var model = IfcStore.Open(path);
+            var context = new Xbim3DModelContext(model);
+            context.CreateContext();
+            _wpfControl.ModelProvider.ObjectInstance = model;
+            ifcMetaDataControl1.Model = model;
         }
 
         private void _wpfControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -41,31 +54,6 @@ namespace OrcamentosIfc.Forms
                 ifcMetaDataControl1.SelectedEntity = ent;
                 label1.Text = ent.EntityLabel.ToString();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var dlg = new OpenFileDialog();
-            dlg.Filter = "IFC Files|*.ifc;*.ifczip;*.ifcxml|Xbim Files|*.xbim";
-            dlg.Multiselect = false;
-            var result = dlg.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                var model = IfcStore.Open(dlg.FileName);
-
-                var context = new Xbim3DModelContext(model);
-                context.CreateContext();
-
-                _wpfControl.ModelProvider.ObjectInstance = model;
-
-                ifcMetaDataControl1.Model = model;
-            }
-        }
-
-        private void ControlHost_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)

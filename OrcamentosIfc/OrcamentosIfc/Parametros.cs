@@ -8,8 +8,8 @@ namespace OrcamentosIfc
 {
     public static class Parametros
     {
-        public static string PeriodoSinapi;
+        public static string PeriodoSinapiSelecionado;
 
-
+        public static string ProjetoSelecionado;
     }
 }

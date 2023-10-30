@@ -2,25 +2,45 @@
 	<ribbon>
 		<tabs>
 			<tab id="CustomTab" label="Orçamentos IFC">
-				<group id="Menu" label="Menu">
-					<button id="Btn_LoadProjeto" label="Carregar Projeto .IFC" onAction="Btn_LoadProejto_Click" imageMso="FileOpen" size="large"/>
-				</group>
-				<group id ="SINAPI" label="SINAPI">
-					<button id ="Btn_LoadSinapi" label="Carregar Tabela SINAPI" onAction="Btn_LoadSinapi_Click" imageMso="RefreshAll" size="large"/>
-				</group>
-				<group id ="Custear_Elementos" label="Custear Elementos">
-					<button id ="Btn_CustearElementos" label="Definir o custo dos Elementos" onAction="Btn_CustearElementos_Click" imageMso="DatabaseRelationships" size="large"/>
-				</group>
-				<group id ="Resultados" label="Visualizar Resultados">
-					<button id ="Btn_Resultados" label="Visualizar os Resultados" onAction="Btn_Resultados_Click" imageMso="ChartInsert" size="large"/>
-				</group>
 				<group id ="Parametros" label="Parâmetros">
 					<comboBox id="Cbb_PeriodoSinapi" 
 								label="Período Sinapi"								
 								getItemCount="Cbb_PeriodoSinapi_GetItemCount" 
 								getItemLabel="Cbb_PeriodoSinapi_GetItemLabel" 
-								onChange="Cbb_PeriodoSinapi_OnChange"/>
-					<comboBox id="Cbb_Projeto" label="Projeto Selecionado"/>
+								onChange="Cbb_PeriodoSinapi_OnChange"
+								sizeString="Exemplo 123/Exemplo 123/Exemplo 123/Exemplo 123"/>
+					<comboBox id="Cbb_ProjetoSelecionado" 
+								label="Projeto Selecionado"
+							  	getItemCount="Cbb_ProjetoSelecionado_GetItemCount" 
+								getItemLabel="Cbb_ProjetoSelecionado_GetItemLabel" 
+								onChange="Cbb_ProjetoSelecionado_OnChange"
+								sizeString="Exemplo 123/Exemplo 123/Exemplo 123/Exemplo 123"/>
+				</group>
+				<group id="CargaDeDadps" label="Carga de Dados">
+					<button id="Btn_LoadProjeto" 
+							label="Carregar Projeto .IFC" 
+							onAction="Btn_LoadProejto_Click" 
+							imageMso="FileOpen" 
+							size="large"/>
+					<button id ="Btn_LoadSinapi" 
+							label="Carregar Tabela SINAPI" 
+							onAction="Btn_LoadSinapi_Click" 
+							imageMso="RefreshAll" 
+							size="large"/>
+				</group>
+				<group id ="Custear_Elementos" label="Custear Elementos">
+					<button id ="Btn_CustearElementos" 
+							label="Definir o custo dos Elementos" 
+							onAction="Btn_CustearElementos_Click" 
+							imageMso="DatabaseRelationships" 
+							size="large"/>
+				</group>
+				<group id ="Resultados" label="Visualizar Resultados">
+					<button id ="Btn_Resultados" 
+							label="Visualizar os Resultados" 
+							onAction="Btn_Resultados_Click" 
+							imageMso="ChartInsert" 
+							size="large"/>
 				</group>
 			</tab>
 		</tabs>

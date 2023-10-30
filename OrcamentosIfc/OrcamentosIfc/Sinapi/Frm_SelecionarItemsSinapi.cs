@@ -33,10 +33,10 @@ namespace OrcamentosIfc.Sinapi
 
         private void Configure()
         {
+            LBL_Referência.Text = Parametros.PeriodoSinapiSelecionado;
             Insumos_Configure();
             Sinteticas_Configure();
             Analiticas_Configure();
-
             LoadComboboxes();
         }
 
@@ -66,7 +66,7 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from i in insumos
                          where
-                         (i.Prefixo == Parametros.PeriodoSinapi)
+                         (i.Prefixo == Parametros.PeriodoSinapiSelecionado)
                           && (i.Codigo.ToUpper().Contains(codigo) || codigo == "")
                           && (i.Descricao.ToUpper().Contains(descricao) || descricao == "")
                           && (i.Unidade.ToUpper().Contains(unidade) || unidade == "")
@@ -131,7 +131,7 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from s in _appdbContext.ComposicoesSinteticas
                          where
-                            (s.Prefixo == Parametros.PeriodoSinapi)
+                            (s.Prefixo == Parametros.PeriodoSinapiSelecionado)
                             && s.DescricaoClasse.ToUpper() == classe
                             && s.DescricaoTipo1.ToUpper() == tipo
                             && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
@@ -199,7 +199,7 @@ namespace OrcamentosIfc.Sinapi
 
             var result = from s in _appdbContext.ComposicoesAnaliticas
                          where
-                            (s.Prefixo == Parametros.PeriodoSinapi)
+                            (s.Prefixo == Parametros.PeriodoSinapiSelecionado)
                             && s.DescricaoClasse.ToUpper() == classe
                             && s.DescricaoTipo1.ToUpper() == tipo
                             && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")

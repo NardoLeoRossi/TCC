@@ -25,11 +25,13 @@ namespace OrcamentosIfc.Data
         public static string GetAppDataFolder()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var folderPath = Path.Combine(appDataPath, @"OrcamentosIFC");
+            var folderPath = Path.Combine(appDataPath, "OrcamentosIFC");
+            var folderProjects = Path.Combine(appDataPath, "Projetos");
 
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
+                Directory.CreateDirectory(folderProjects);
             }
             return folderPath;
         }
@@ -37,6 +39,16 @@ namespace OrcamentosIfc.Data
         public static string GetDataBasePath()
         {
             return GetAppDataFolder() + @"\OrcamentosIfc.sqlite";
+        }
+
+        public static string GetProjectsPath()
+        {
+            var path = GetAppDataFolder() + @"\Projetos";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
         }
     }
 }

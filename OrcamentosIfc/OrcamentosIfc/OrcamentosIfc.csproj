@@ -290,6 +290,7 @@
     <Compile Include="Forms\WinformsAccessibleControl.xaml.cs">
       <DependentUpon>WinformsAccessibleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IFC\LoadProjetos.cs" />
     <Compile Include="Parametros.cs" />
     <Compile Include="Sinapi\Frm_SelecionarItemsSinapi.cs">
       <SubType>Form</SubType>

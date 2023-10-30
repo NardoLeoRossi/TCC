@@ -417,9 +417,10 @@
             // LBL_Referência
             // 
             this.LBL_Referência.AutoSize = true;
+            this.LBL_Referência.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBL_Referência.Location = new System.Drawing.Point(77, 9);
             this.LBL_Referência.Name = "LBL_Referência";
-            this.LBL_Referência.Size = new System.Drawing.Size(25, 13);
+            this.LBL_Referência.Size = new System.Drawing.Size(37, 16);
             this.LBL_Referência.TabIndex = 1;
             this.LBL_Referência.Text = "------";
             // 
@@ -432,7 +433,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Name = "Frm_SelecionarItemsSinapi";
-            this.Text = "Form1";
+            this.Text = "Composições SIPANI";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

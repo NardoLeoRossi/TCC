@@ -34,6 +34,7 @@ namespace OrcamentosIfc.Sinapi
             if (result != DialogResult.OK) return;
 
             LoadSinapiData(dlg.FileName);
+            Rbn_Orcamentos.Instance.LoadCombobox();
 
             MessageBox.Show($"Processo Concluído.\n" +
                 $"Insumos: {_qntdInsumos} Registro Importados\n" +

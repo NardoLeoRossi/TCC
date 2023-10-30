@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Core;
 using MoreLinq;
+using OrcamentosIfc.Data;
 using OrcamentosIfc.Forms;
 using OrcamentosIfc.Sinapi;
 using System;
@@ -12,7 +13,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
-
+using OrcamentosIfc.IFC;
 
 namespace OrcamentosIfc
 {
@@ -22,50 +23,114 @@ namespace OrcamentosIfc
         private Office.IRibbonUI ribbon;
         private AppDbContext _appDbContext;
 
+        public static Rbn_Orcamentos Instance;
+
         public Rbn_Orcamentos()
         {
             _appDbContext = new AppDbContext();
+            Instance = this;
             LoadCombobox();
         }
 
-        private List<string> _periodos;
-
-        private void LoadCombobox()
+        public void LoadCombobox()
         {
-            _periodos = _appDbContext.Insumos
-                                .Select(x => x.Prefixo)
-                                .DistinctBy(x => x.ToString())
-                                .ToList()
-                                .OrderBy(x => x.ToString())
-                                .ToList();
+            LoadPeriodos();
+            LoadProjetos();
+        }
+
+        #region SINAPI selecionado
+
+        private List<string> _periodosSinapi;
+
+        private void LoadPeriodos()
+        {
+            if (File.Exists(AppConfiguration.GetDataBasePath()))
+            {
+                _periodosSinapi = _appDbContext.Insumos
+                                    .Select(x => x.Prefixo)
+                                    .DistinctBy(x => x.ToString())
+                                    .ToList()
+                                    .OrderBy(x => x.ToString())
+                                    .ToList();
+            }
         }
 
         public int Cbb_PeriodoSinapi_GetItemCount(IRibbonControl control)
         {
-            return _periodos.Count;
+            if (_periodosSinapi == null)
+                return 0;
+            return _periodosSinapi.Count;
         }
 
         public string Cbb_PeriodoSinapi_GetItemLabel(IRibbonControl control, int index)
         {
-            return _periodos[index];
+            if (_periodosSinapi == null)
+                return "";
+            return _periodosSinapi[index];
         }
 
         public void Cbb_PeriodoSinapi_OnChange(IRibbonControl control, string text)
         {
-            Parametros.PeriodoSinapi = text;
+            Parametros.PeriodoSinapiSelecionado = text;
         }
 
-        public void Btn_LoadProejto_Click(Office.IRibbonControl control)
+        #endregion
+
+        #region Projeto Selecionado
+
+        private List<string> _projetos;
+
+        private void LoadProjetos()
         {
-            var frm = new Frm_VisualizarProjeto();
-            frm.ShowDialog();
+            _projetos = new List<string>();
+            var path = AppConfiguration.GetProjectsPath();
+            var files = Directory.GetFiles(path);
+            foreach (var file in files)
+            {
+                if(Path.GetExtension(file).ToUpper().Equals(".IFC"))
+                {
+                    _projetos.Add(Path.GetFileName(file));
+                }
+            }
         }
+
+        public int Cbb_ProjetoSelecionado_GetItemCount(IRibbonControl control)
+        {
+            if (_projetos == null)
+                return 0;
+            return _projetos.Count;
+        }
+
+        public string Cbb_ProjetoSelecionado_GetItemLabel(IRibbonControl control, int index)
+        {
+            if (_projetos == null)
+                return "";
+            return _projetos[index];
+        }
+
+        public void Cbb_ProjetoSelecionado_OnChange(IRibbonControl control, string text)
+        {
+            Parametros.ProjetoSelecionado = text;
+        }
+
+        #endregion
 
         public void Btn_LoadSinapi_Click(Office.IRibbonControl control)
         {
             LoadSinapi.LoadNewSinapi();
         }
 
+        public void Btn_LoadProejto_Click(Office.IRibbonControl control)
+        {
+            OrcamentosIfc.IFC.LoadProjetos.LoadProjeto();
+        }
+
+        public void Btn_CustearElementos_Click(Office.IRibbonControl control)
+        {
+            var frm = new Frm_VisualizarProjeto();
+            frm.ShowDialog();
+        }
+        
         #region Membros de IRibbonExtensibility
 
         public string GetCustomUI(string ribbonID)
