@@ -295,6 +295,7 @@
     <Compile Include="Forms\WinformsAccessibleControl.xaml.cs">
       <DependentUpon>WinformsAccessibleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IFC\ExportarProjeto.cs" />
     <Compile Include="IFC\LoadProjetos.cs" />
     <Compile Include="Migrations\20231112170607_InitialCreate.cs" />
     <Compile Include="Migrations\20231112170607_InitialCreate.designer.cs">

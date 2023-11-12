@@ -146,9 +146,9 @@ namespace OrcamentosIfc
 
         public void Btn_ExportarProjeto_Click(Office.IRibbonControl control)
         {
+
+
             MessageBox.Show("oi");
-
-
 
         }
 
