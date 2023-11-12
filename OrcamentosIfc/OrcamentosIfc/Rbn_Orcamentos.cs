@@ -127,10 +127,31 @@ namespace OrcamentosIfc
 
         public void Btn_CustearElementos_Click(Office.IRibbonControl control)
         {
+
+            if(String.IsNullOrEmpty(Parametros.PeriodoSinapiSelecionado))
+            {
+                MessageBox.Show("Selecione um Período SINAPI");
+                return;
+            }
+
+            if (String.IsNullOrEmpty(Parametros.ProjetoSelecionado))
+            {
+                MessageBox.Show("Selecione um Projeto");
+                return;
+            }
+
             var frm = new Frm_VisualizarProjeto();
             frm.ShowDialog();
         }
-        
+
+        public void Btn_ExportarProjeto_Click(Office.IRibbonControl control)
+        {
+            MessageBox.Show("oi");
+
+
+
+        }
+
         #region Membros de IRibbonExtensibility
 
         public string GetCustomUI(string ribbonID)

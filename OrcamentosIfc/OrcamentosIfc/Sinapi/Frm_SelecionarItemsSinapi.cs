@@ -95,8 +95,13 @@ namespace OrcamentosIfc.Sinapi
         private void Btn_InsumosAdd_Click(object sender, EventArgs e)
         {
             if (Lst_Insumos.SelectedItems.Count == 0) return;
+            if (ConvertQuantidade(Txt_QntdInsumos.Text) <= 0)
+            {
+                MessageBox.Show("Quantidade Inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var insumo = (Insumo)Lst_Insumos.SelectedItems[0].Tag;
-            OnItemSelecionado(new CustomEventArgs(insumo));
+            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(insumo, ConvertQuantidade(Txt_QntdInsumos.Text)));
         }
 
         #endregion
@@ -163,8 +168,13 @@ namespace OrcamentosIfc.Sinapi
         private void Btn_SinteticasAdd_Click(object sender, EventArgs e)
         {
             if (Lst_Sinteticas.SelectedItems.Count == 0) return;
+            if(ConvertQuantidade(Txt_QntdSintetica.Text) <= 0)
+            {
+                MessageBox.Show("Quantidade Inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var comp = (ComposicaoSintetica)Lst_Sinteticas.SelectedItems[0].Tag;
-            OnItemSelecionado(new CustomEventArgs(comp));
+            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(comp, ConvertQuantidade(Txt_QntdSintetica.Text)));
         }
 
         #endregion
@@ -231,8 +241,13 @@ namespace OrcamentosIfc.Sinapi
         private void Btn_AnaliticasAdd_Click(object sender, EventArgs e)
         {
             if (Lst_Analiticas.SelectedItems.Count == 0) return;
+            if (ConvertQuantidade(Txt_QntdAnalitica.Text) <= 0)
+            {
+                MessageBox.Show("Quantidade Inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var comp = (ComposicaoAnalitica)Lst_Analiticas.SelectedItems[0].Tag;
-            OnItemSelecionado(new CustomEventArgs(comp));
+            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(comp, ConvertQuantidade(Txt_QntdAnalitica.Text)));
         }
 
         #endregion
@@ -336,13 +351,20 @@ namespace OrcamentosIfc.Sinapi
             if (cb.Items.Count > 0) cb.SelectedIndex = 0;
         }
 
+        private decimal ConvertQuantidade(string qntd)
+        {
+            decimal dec = 0;
+            decimal.TryParse(qntd, out dec);
+            return dec;
+        }
+
         #endregion
 
-        public delegate void ItemSelecionadoEventArgs(object sender, CustomEventArgs e);
+        public delegate void ItemSelecionadoEventArgs(object sender, CustomEventArgsItemSinapiSelecionado e);
 
         public event ItemSelecionadoEventArgs ItemSelecionado;
 
-        protected virtual void OnItemSelecionado(CustomEventArgs e)
+        protected virtual void OnItemSelecionado(CustomEventArgsItemSinapiSelecionado e)
         {
             var handler = ItemSelecionado;
             if (handler != null) handler(this, e);

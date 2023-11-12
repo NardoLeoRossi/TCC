@@ -66,6 +66,12 @@
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.LBL_Referência = new System.Windows.Forms.Label();
+            this.Txt_QntdInsumos = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Txt_QntdSintetica = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Txt_QntdAnalitica = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -136,7 +142,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.Txt_QntdInsumos);
             this.tabPage1.Controls.Add(this.Btn_InsumosAdd);
+            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.Pnl_InsumosFiltros);
             this.tabPage1.Controls.Add(this.Lst_Insumos);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -169,6 +177,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.Txt_QntdSintetica);
+            this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.Btn_SinteticasAdd);
             this.tabPage2.Controls.Add(this.Cbb_SinteticaTipo);
             this.tabPage2.Controls.Add(this.Cbb_SinteticaClasse);
@@ -288,6 +298,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.Txt_QntdAnalitica);
+            this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.Btn_AnaliticasAdd);
             this.tabPage3.Controls.Add(this.Cbb_AnaliticaTipo);
             this.tabPage3.Controls.Add(this.Cbb_AnaliticaClasse);
@@ -424,6 +436,60 @@
             this.LBL_Referência.TabIndex = 1;
             this.LBL_Referência.Text = "------";
             // 
+            // Txt_QntdInsumos
+            // 
+            this.Txt_QntdInsumos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Txt_QntdInsumos.Location = new System.Drawing.Point(804, 547);
+            this.Txt_QntdInsumos.Name = "Txt_QntdInsumos";
+            this.Txt_QntdInsumos.Size = new System.Drawing.Size(100, 20);
+            this.Txt_QntdInsumos.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(733, 550);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Quantidade:";
+            // 
+            // Txt_QntdSintetica
+            // 
+            this.Txt_QntdSintetica.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Txt_QntdSintetica.Location = new System.Drawing.Point(804, 547);
+            this.Txt_QntdSintetica.Name = "Txt_QntdSintetica";
+            this.Txt_QntdSintetica.Size = new System.Drawing.Size(100, 20);
+            this.Txt_QntdSintetica.TabIndex = 16;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(733, 550);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Quantidade:";
+            // 
+            // Txt_QntdAnalitica
+            // 
+            this.Txt_QntdAnalitica.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Txt_QntdAnalitica.Location = new System.Drawing.Point(804, 547);
+            this.Txt_QntdAnalitica.Name = "Txt_QntdAnalitica";
+            this.Txt_QntdAnalitica.Size = new System.Drawing.Size(100, 20);
+            this.Txt_QntdAnalitica.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(733, 550);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Quantidade:";
+            // 
             // Frm_SelecionarItemsSinapi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,6 +502,7 @@
             this.Text = "Composições SIPANI";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -485,5 +552,11 @@
         private System.Windows.Forms.Button Btn_InsumosAdd;
         private System.Windows.Forms.Button Btn_SinteticasAdd;
         private System.Windows.Forms.Button Btn_AnaliticasAdd;
+        private System.Windows.Forms.TextBox Txt_QntdInsumos;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox Txt_QntdSintetica;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox Txt_QntdAnalitica;
+        private System.Windows.Forms.Label label8;
     }
 }

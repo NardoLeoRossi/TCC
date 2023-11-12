@@ -35,11 +35,11 @@
 							imageMso="DatabaseRelationships" 
 							size="large"/>
 				</group>
-				<group id ="Resultados" label="Visualizar Resultados">
-					<button id ="Btn_Resultados" 
-							label="Visualizar os Resultados" 
-							onAction="Btn_Resultados_Click" 
-							imageMso="ChartInsert" 
+				<group id ="Exportar" label="Exportar Projeto">
+					<button id ="Btn_ExportarProjeto" 
+							label="Exportar Projeto" 
+							onAction="Btn_ExportarProjeto_Click" 
+							imageMso="TableExportMenu" 
 							size="large"/>
 				</group>
 			</tab>

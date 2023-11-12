@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace OrcamentosIfc.Utils
 {
-    public class CustomEventArgs : EventArgs
+    public class CustomEventArgsItemSinapiSelecionado : EventArgs
     {
         public object Tag { get; }
 
-        public CustomEventArgs(object tag = null)
+        public decimal Qntd { get; }
+
+        public CustomEventArgsItemSinapiSelecionado(object tag, decimal qntd)
         {
             Tag = tag;
+            Qntd = qntd;
         }
     }
 }

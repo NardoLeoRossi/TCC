@@ -24,6 +24,12 @@ namespace OrcamentosIfc
 
         public DbSet<ComposicaoAnalitica> ComposicoesAnaliticas { get; set; }
 
+        public DbSet<ElementoProjeto> ElementosProjeto { get; set;}
 
+        public DbSet<ElementoComposicaoAnalitica> ElementoComposicaoAnalitica { get; set; }
+
+        public DbSet<ElementoComposicaoSintetica> ElementoComposicaoSintetica { get; set; }
+
+        public DbSet<ElementoInsumo> ElementoInsumo { get; set; }
     }
 }

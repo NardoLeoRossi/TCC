@@ -278,8 +278,13 @@
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Data\AppConfiguration.cs" />
+    <Compile Include="Data\Interfaces\IItemSinapi.cs" />
     <Compile Include="Data\Models\ComposicaoAnalitica.cs" />
     <Compile Include="Data\Models\ComposicaoSintetica.cs" />
+    <Compile Include="Data\Models\ElementoComposicaoAnalitica.cs" />
+    <Compile Include="Data\Models\ElementoComposicaoSintetica.cs" />
+    <Compile Include="Data\Models\ElementoInsumo.cs" />
+    <Compile Include="Data\Models\ElementoProjeto.cs" />
     <Compile Include="Data\Models\Insumo.cs" />
     <Compile Include="Forms\Frm_VisualizarProjeto.cs">
       <SubType>Form</SubType>
@@ -291,6 +296,11 @@
       <DependentUpon>WinformsAccessibleControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="IFC\LoadProjetos.cs" />
+    <Compile Include="Migrations\20231112170607_InitialCreate.cs" />
+    <Compile Include="Migrations\20231112170607_InitialCreate.designer.cs">
+      <DependentUpon>20231112170607_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Parametros.cs" />
     <Compile Include="Sinapi\Frm_SelecionarItemsSinapi.cs">
       <SubType>Form</SubType>
@@ -299,11 +309,6 @@
       <DependentUpon>Frm_SelecionarItemsSinapi.cs</DependentUpon>
     </Compile>
     <Compile Include="Sinapi\LoadSinapi.cs" />
-    <Compile Include="Migrations\20231024193428_InicialCreate.cs" />
-    <Compile Include="Migrations\20231024193428_InicialCreate.designer.cs">
-      <DependentUpon>20231024193428_InicialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Planilha1.cs">
       <DependentUpon>OrcamentosIfc.xlsx</DependentUpon>
     </Compile>

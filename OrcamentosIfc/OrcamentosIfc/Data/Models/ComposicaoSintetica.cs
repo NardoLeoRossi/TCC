@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrcamentosIfc.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrcamentosIfc.Data.Models
 {
-    public class ComposicaoSintetica
+    public class ComposicaoSintetica : IItemSinapi
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrcamentosIfc.Data.Interfaces;
 
 namespace OrcamentosIfc.Data.Models
 {
-    public class ComposicaoAnalitica
+    public class ComposicaoAnalitica: IItemSinapi
     {
 
         [Key]
