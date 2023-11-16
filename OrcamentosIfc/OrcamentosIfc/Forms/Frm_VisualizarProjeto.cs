@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xbim.Common;
 using Xbim.Ifc;
+using Xbim.Ifc4.Kernel;
 using Xbim.ModelGeometry.Scene;
 
 namespace OrcamentosIfc.Forms
@@ -57,6 +59,10 @@ namespace OrcamentosIfc.Forms
         private void _wpfControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             _entidadeSelecionada = e.AddedItems[0] as IPersistEntity;
+
+            if (_entidadeSelecionada != null)
+                Debug.Print(e.AddedItems[0].GetType().ToString());
+
             RefreshItens();
         }
 
