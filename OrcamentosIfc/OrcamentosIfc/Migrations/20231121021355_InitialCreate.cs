@@ -104,6 +104,7 @@ namespace OrcamentosIfc.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ElementoId = table.Column<int>(nullable: false),
                     ComposicaoAnaliticaId = table.Column<int>(nullable: false),
+                    Dimensao = table.Column<string>(nullable: false),
                     Quantidade = table.Column<decimal>(type: "decimal(12, 6)", nullable: false),
                     ElementoProjetoId = table.Column<int>(nullable: true)
                 },
@@ -132,6 +133,7 @@ namespace OrcamentosIfc.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ElementoId = table.Column<int>(nullable: false),
                     ComposicaoSinteticaId = table.Column<int>(nullable: false),
+                    Dimensao = table.Column<string>(nullable: false),
                     Quantidade = table.Column<decimal>(type: "decimal(12, 6)", nullable: false),
                     ElementoProjetoId = table.Column<int>(nullable: true)
                 },
@@ -160,6 +162,7 @@ namespace OrcamentosIfc.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ElementoId = table.Column<int>(nullable: false),
                     InsumoId = table.Column<int>(nullable: false),
+                    Dimensao = table.Column<string>(nullable: false),
                     Quantidade = table.Column<decimal>(type: "decimal(12, 6)", nullable: false),
                     ElementoProjetoId = table.Column<int>(nullable: true)
                 },

@@ -9,7 +9,7 @@ using OrcamentosIfc;
 namespace OrcamentosIfc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231112170607_InitialCreate")]
+    [Migration("20231121021355_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,6 +180,10 @@ namespace OrcamentosIfc.Migrations
                     b.Property<int>("ComposicaoAnaliticaId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Dimensao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ElementoId")
                         .HasColumnType("INTEGER");
 
@@ -207,6 +211,10 @@ namespace OrcamentosIfc.Migrations
                     b.Property<int>("ComposicaoSinteticaId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Dimensao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ElementoId")
                         .HasColumnType("INTEGER");
 
@@ -230,6 +238,10 @@ namespace OrcamentosIfc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Dimensao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ElementoId")
                         .HasColumnType("INTEGER");

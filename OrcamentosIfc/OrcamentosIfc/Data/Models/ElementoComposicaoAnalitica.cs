@@ -21,6 +21,9 @@ namespace OrcamentosIfc.Data.Models
         public int ComposicaoAnaliticaId { get; set; }
 
         [Required]
+        public string Dimensao { get; set; }
+
+        [Required]
         [Column(TypeName = "decimal(12, 6)")]
         public decimal Quantidade { get; set; }
 

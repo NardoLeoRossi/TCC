@@ -16,10 +16,19 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Xbim.Common;
 using Xbim.Ifc;
-using Xbim.Ifc4.Kernel;
+using Xbim.Ifc2x3.Kernel;
+using Xbim.Ifc2x3.ProductExtension;
+using Xbim.Ifc2x3.QuantityResource;
+using Xbim.Ifc2x3.StructuralElementsDomain;
 using Xbim.ModelGeometry.Scene;
+using Xbim.Geometry;
+using Xbim.Common.Geometry;
+using Xbim.Geometry.Engine.Interop;
+using Xbim.Ifc2x3.Interfaces;
+using OrcamentosIfc.Utils;
 
 namespace OrcamentosIfc.Forms
 {
@@ -29,6 +38,10 @@ namespace OrcamentosIfc.Forms
         private WinformsAccessibleControl _wpfControl;
 
         private IPersistEntity _entidadeSelecionada;
+
+        private IIfcElement _elementoSelecionado;
+
+        private IfcStore _model;
 
         public Frm_VisualizarProjeto()
         {
@@ -49,28 +62,60 @@ namespace OrcamentosIfc.Forms
         private void LoadProjetoModel()
         {
             var path = Path.Combine(AppConfiguration.GetProjectsPath(), Parametros.ProjetoSelecionado);
-            var model = IfcStore.Open(path);
-            var context = new Xbim3DModelContext(model);
+            _model = IfcStore.Open(path);
+            var context = new Xbim3DModelContext(_model);
             context.CreateContext();
-            _wpfControl.ModelProvider.ObjectInstance = model;
-            ifcMetaDataControl1.Model = model;
+            _wpfControl.ModelProvider.ObjectInstance = _model;
+            ifcMetaDataControl1.Model = _model;
         }
 
         private void _wpfControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             _entidadeSelecionada = e.AddedItems[0] as IPersistEntity;
+            _elementoSelecionado = e.AddedItems[0] as IIfcElement;
+
+            CarregarPropriedades(_elementoSelecionado);
 
             if (_entidadeSelecionada != null)
-                Debug.Print(e.AddedItems[0].GetType().ToString());
+            {
+                OnItemSelecionado(new CostumEventArgsElementoIfcSelecionado(_elementoSelecionado, _model));
+            }
 
             RefreshItens();
+        }
+
+        private void CarregarPropriedades(IIfcElement element)
+        {
+            if (element == null) return;
+
+            var context = new Xbim3DModelContext(_model);
+            context.CreateContext();
+
+            foreach (var item in context.ShapeInstances())
+            {
+                if (item.IfcProductLabel == element.EntityLabel)
+                {
+                    Debug.Print($"GlobalID: {element.GlobalId}");
+                    Debug.Print($"EntityLabel: {element.EntityLabel}");
+                    Debug.Print($"Volume: {item.BoundingBox.Volume.ToString()}");
+                    Debug.Print($"X: {item.BoundingBox.SizeX.ToString()}");
+                    Debug.Print($"Y: {item.BoundingBox.SizeY.ToString()}");
+                    Debug.Print($"Z: {item.BoundingBox.SizeZ.ToString()}");
+                }
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             var frm = new Frm_SelecionarItemsSinapi();
             frm.ItemSelecionado += Frm_ItemSelecionado;
+            this.ElementoSelecionadoChange += frm.ElementoSelecionadoChange;
             frm.Show();
+            if (_entidadeSelecionada != null)
+            {
+                OnItemSelecionado(new CostumEventArgsElementoIfcSelecionado(_elementoSelecionado, _model));
+            }
         }
 
         private void Frm_ItemSelecionado(object sender, Utils.CustomEventArgsItemSinapiSelecionado e)
@@ -89,7 +134,7 @@ namespace OrcamentosIfc.Forms
                 Parametros.AppDbContext.SaveChanges();
             }
 
-            elemento.AddItemCusto(e.Tag as IItemSinapi, e.Qntd);
+            elemento.AddItemCusto(e.Tag as IItemSinapi, e.Dimensao, (decimal)e.Qntd);
 
             RefreshItens();
         }
@@ -117,6 +162,7 @@ namespace OrcamentosIfc.Forms
                     i.Tag = item;
                     i.SubItems.Add(item.Insumo.Descricao);
                     i.SubItems.Add(item.Insumo.Preco.ToString());
+                    i.SubItems.Add(item.Dimensao);
                     i.SubItems.Add(item.Quantidade.ToString());
                     i.SubItems.Add((item.Insumo.Preco * item.Quantidade).ToString());
 
@@ -132,6 +178,7 @@ namespace OrcamentosIfc.Forms
                     i.Tag = item;
                     i.SubItems.Add(item.ComposicaoAnalitica.DescricaoComposicao);
                     i.SubItems.Add(item.ComposicaoAnalitica.CustoTotal.ToString());
+                    i.SubItems.Add(item.Dimensao);
                     i.SubItems.Add(item.Quantidade.ToString());
                     i.SubItems.Add((item.ComposicaoAnalitica.CustoTotal * item.Quantidade).ToString());
 
@@ -147,6 +194,7 @@ namespace OrcamentosIfc.Forms
                     i.Tag = item;
                     i.SubItems.Add(item.ComposicaoSintetica.DescricaoComposicao);
                     i.SubItems.Add(item.ComposicaoSintetica.CustoTotal.ToString());
+                    i.SubItems.Add(item.Dimensao);
                     i.SubItems.Add(item.Quantidade.ToString());
                     i.SubItems.Add((item.ComposicaoSintetica.CustoTotal * item.Quantidade).ToString());
 
@@ -179,6 +227,16 @@ namespace OrcamentosIfc.Forms
                 elemento.RemoveCusto(item.Tag);
             }
             RefreshItens();
+        }
+
+        public delegate void ItemSelecionadoEventArgs(object sender, CostumEventArgsElementoIfcSelecionado e);
+
+        public event ItemSelecionadoEventArgs ElementoSelecionadoChange;
+
+        protected virtual void OnItemSelecionado(CostumEventArgsElementoIfcSelecionado e)
+        {
+            var handler = ElementoSelecionadoChange;
+            if (handler != null) handler(this, e);
         }
     }
 }

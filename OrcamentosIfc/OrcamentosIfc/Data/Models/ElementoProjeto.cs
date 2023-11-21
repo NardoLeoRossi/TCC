@@ -26,57 +26,60 @@ namespace OrcamentosIfc.Data.Models
 
         public List<ElementoComposicaoAnalitica> ComposicoesAnaliticas { get; set; }
 
-        public List<ElementoComposicaoSintetica> ComposicoesSinteticas { get; set; }    
+        public List<ElementoComposicaoSintetica> ComposicoesSinteticas { get; set; }
 
         public List<ElementoInsumo> Insumos { get; set; }
 
-        public void AddItemCusto(IItemSinapi item, decimal qntd)
+        public void AddItemCusto(IItemSinapi item, string dimensao, decimal qntd)
         {
-            if(item is ComposicaoAnalitica) 
+            if (item is ComposicaoAnalitica)
             {
-                AddItemCustoComposicaoAnalitica(item as ComposicaoAnalitica, qntd);
+                AddItemCustoComposicaoAnalitica(item as ComposicaoAnalitica, dimensao, qntd);
             }
-            else if(item is ComposicaoSintetica)
+            else if (item is ComposicaoSintetica)
             {
-                AddItemCustoComposicaoSintetica(item as ComposicaoSintetica, qntd);
+                AddItemCustoComposicaoSintetica(item as ComposicaoSintetica, dimensao, qntd);
             }
             else if (item is Insumo)
             {
-                AddItemCustoInsumo(item as Insumo, qntd);
+                AddItemCustoInsumo(item as Insumo, dimensao, qntd);
             }
         }
 
-        private void AddItemCustoComposicaoAnalitica(ComposicaoAnalitica item, decimal qntd)
+        private void AddItemCustoComposicaoAnalitica(ComposicaoAnalitica item, string dimensao, decimal qntd)
         {
             var custo = new ElementoComposicaoAnalitica
             {
                 Quantidade = qntd,
                 ComposicaoAnaliticaId = item.Id,
-                ElementoId = this.Id
+                ElementoId = this.Id,
+                Dimensao = dimensao                
             };
             Parametros.AppDbContext.ElementoComposicaoAnalitica.Add(custo);
             Parametros.AppDbContext.SaveChanges();
         }
 
-        private void AddItemCustoComposicaoSintetica(ComposicaoSintetica item, decimal qntd)
+        private void AddItemCustoComposicaoSintetica(ComposicaoSintetica item, string dimensao, decimal qntd)
         {
             var custo = new ElementoComposicaoSintetica
             {
                 Quantidade = qntd,
-                ComposicaoSinteticaId= item.Id,
-                ElementoId = this.Id
+                ComposicaoSinteticaId = item.Id,
+                ElementoId = this.Id,
+                Dimensao = dimensao
             };
             Parametros.AppDbContext.ElementoComposicaoSintetica.Add(custo);
             Parametros.AppDbContext.SaveChanges();
         }
 
-        private void AddItemCustoInsumo(Insumo item, decimal qntd)
+        private void AddItemCustoInsumo(Insumo item, string dimensao, decimal qntd)
         {
             var custo = new ElementoInsumo
             {
                 Quantidade = qntd,
-                InsumoId= item.Id,
-                ElementoId = this.Id
+                InsumoId = item.Id,
+                ElementoId = this.Id,
+                Dimensao = dimensao
             };
             Parametros.AppDbContext.ElementoInsumo.Add(custo);
             Parametros.AppDbContext.SaveChanges();
@@ -102,7 +105,7 @@ namespace OrcamentosIfc.Data.Models
         public void LoadCustos()
         {
             ComposicoesAnaliticas = Parametros.AppDbContext.ElementoComposicaoAnalitica
-                                                                .Include(x  => x.ComposicaoAnalitica)
+                                                                .Include(x => x.ComposicaoAnalitica)
                                                                 .Where(x => x.ElementoId == this.Id).ToList();
 
             ComposicoesSinteticas = Parametros.AppDbContext.ElementoComposicaoSintetica

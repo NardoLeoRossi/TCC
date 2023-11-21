@@ -14,6 +14,12 @@ using System.Windows.Media.Animation;
 using MoreLinq;
 using System.IO.Packaging;
 using OrcamentosIfc.Utils;
+using System.Diagnostics;
+using Xbim.ModelGeometry.Scene;
+using Xbim.Tessellator;
+using Microsoft.EntityFrameworkCore.Storage;
+using OrcamentosIfc.Data.Interfaces;
+using System.Xml;
 
 namespace OrcamentosIfc.Sinapi
 {
@@ -38,7 +44,15 @@ namespace OrcamentosIfc.Sinapi
             Sinteticas_Configure();
             Analiticas_Configure();
             LoadComboboxes();
+
+            Lbl_Volume.Click += SelecionarDimensao;
+            Lbl_Area.Click += SelecionarDimensao;
+            Lbl_Comprimento.Click += SelecionarDimensao;
+            Lbl_Espessura.Click += SelecionarDimensao;
+            Lbl_Altura.Click += SelecionarDimensao;
+            Lbl_Manual.Click += SelecionarDimensao;
         }
+
 
         #region Insumos
 
@@ -90,18 +104,6 @@ namespace OrcamentosIfc.Sinapi
                 item.SubItems.Add(i.Preco.ToString());
                 item.Tag = i;
             }
-        }
-
-        private void Btn_InsumosAdd_Click(object sender, EventArgs e)
-        {
-            if (Lst_Insumos.SelectedItems.Count == 0) return;
-            if (ConvertQuantidade(Txt_QntdInsumos.Text) <= 0)
-            {
-                MessageBox.Show("Quantidade Inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var insumo = (Insumo)Lst_Insumos.SelectedItems[0].Tag;
-            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(insumo, ConvertQuantidade(Txt_QntdInsumos.Text)));
         }
 
         #endregion
@@ -165,18 +167,6 @@ namespace OrcamentosIfc.Sinapi
             }
         }
 
-        private void Btn_SinteticasAdd_Click(object sender, EventArgs e)
-        {
-            if (Lst_Sinteticas.SelectedItems.Count == 0) return;
-            if(ConvertQuantidade(Txt_QntdSintetica.Text) <= 0)
-            {
-                MessageBox.Show("Quantidade Inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var comp = (ComposicaoSintetica)Lst_Sinteticas.SelectedItems[0].Tag;
-            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(comp, ConvertQuantidade(Txt_QntdSintetica.Text)));
-        }
-
         #endregion
 
         #region Composições analiticas
@@ -236,18 +226,6 @@ namespace OrcamentosIfc.Sinapi
                 item.SubItems.Add(s.CustoTotal.ToString());
                 item.Tag = s;
             }
-        }
-
-        private void Btn_AnaliticasAdd_Click(object sender, EventArgs e)
-        {
-            if (Lst_Analiticas.SelectedItems.Count == 0) return;
-            if (ConvertQuantidade(Txt_QntdAnalitica.Text) <= 0)
-            {
-                MessageBox.Show("Quantidade Inválida!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var comp = (ComposicaoAnalitica)Lst_Analiticas.SelectedItems[0].Tag;
-            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(comp, ConvertQuantidade(Txt_QntdAnalitica.Text)));
         }
 
         #endregion
@@ -368,6 +346,128 @@ namespace OrcamentosIfc.Sinapi
         {
             var handler = ItemSelecionado;
             if (handler != null) handler(this, e);
+        }
+
+        public void ElementoSelecionadoChange(object sender, CostumEventArgsElementoIfcSelecionado e)
+        {
+            var model = e.Model;
+            var element = e.Element;
+
+            if (model == null) return;
+            if (element == null) return;
+
+            var context = new Xbim3DModelContext(model);
+            context.CreateContext();
+
+            foreach (var item in context.ShapeInstances())
+            {
+                if (item.IfcProductLabel == element.EntityLabel)
+                {
+                    Txt_Volume.Text = (item.BoundingBox.Volume / 1000000000).ToString("0.00");
+                    Txt_Altura.Text = (item.BoundingBox.SizeZ / 1000).ToString("0.00");
+                    Txt_Comprimento.Text = (item.BoundingBox.SizeX / 1000).ToString("0.00");
+                    Txt_Espessura.Text = (item.BoundingBox.SizeY / 1000).ToString("0.00");
+                    Txt_Area.Text = ((item.BoundingBox.SizeX / 1000) * (item.BoundingBox.SizeZ / 1000)).ToString("0.00");
+
+                    return;
+                }
+            }
+        }
+
+        private void Btn_Add_Click(object sender, EventArgs e)
+        {
+            var itemSinapi = GetItemSinapi();
+            var quantidade = GetQuantidade();
+
+            if (itemSinapi == null)
+            {
+                MessageBox.Show("Selecione um item!");
+                return;
+            }
+            if (quantidade == null)
+            {
+                MessageBox.Show("Quantidade inválida!");
+                return;
+            }
+
+            if(quantidade.Item1 == null)
+            {
+                MessageBox.Show("Quantidade inválida!");
+                return;
+            }
+
+            OnItemSelecionado(new CustomEventArgsItemSinapiSelecionado(itemSinapi, quantidade.Item1, quantidade.Item2));
+        }
+
+        private Tuple<string, decimal?> GetQuantidade()
+        {
+
+            if (Lbl_Volume.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Volume", ConvertQuantidade(Txt_Volume.Text));
+            }
+            else if (Lbl_Area.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Area", ConvertQuantidade(Txt_Area.Text));
+            }
+            else if (Lbl_Comprimento.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Comprimento", ConvertQuantidade(Txt_Comprimento.Text));
+            }
+            else if (Lbl_Espessura.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Espessura", ConvertQuantidade(Txt_Espessura.Text));
+            }
+            else if (Lbl_Altura.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Altura", ConvertQuantidade(Txt_Altura.Text));
+            }
+            else if (Lbl_Manual.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Manual", ConvertQuantidade(Txt_Manual.Text));
+            }
+
+            return new Tuple<string, decimal?>(null, null);
+        }
+
+        private IItemSinapi GetItemSinapi()
+        {
+            if (MultiTab.SelectedTab.Text.Equals("Insumos"))
+            {
+                if (Lst_Insumos.SelectedItems.Count > 0)
+                {
+                    return (Insumo)Lst_Insumos.SelectedItems[0].Tag;
+
+                }
+            }
+            else if (MultiTab.SelectedTab.Text.Equals("Composições Analiticas"))
+            {
+                if (Lst_Analiticas.SelectedItems.Count > 0)
+                {
+                    return (ComposicaoAnalitica)Lst_Analiticas.SelectedItems[0].Tag;
+                }
+            }
+            else if (MultiTab.SelectedTab.Text.Equals("Composições Sintéticas"))
+            {
+                if (Lst_Sinteticas.SelectedItems.Count > 0)
+                {
+                    return (ComposicaoSintetica)Lst_Sinteticas.SelectedItems[0].Tag;
+                }
+            }
+            return null;
+        }
+
+        private void SelecionarDimensao(object sender, EventArgs e)
+        {
+
+            Lbl_Volume.BackColor = Color.White;
+            Lbl_Area.BackColor = Color.White;
+            Lbl_Comprimento.BackColor = Color.White;
+            Lbl_Espessura.BackColor = Color.White;
+            Lbl_Altura.BackColor = Color.White;
+            Lbl_Manual.BackColor = Color.White;
+
+            ((Label)sender).BackColor = Color.Aqua;
         }
     }
 }

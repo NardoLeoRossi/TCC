@@ -38,6 +38,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Lbl_CustoTotal = new System.Windows.Forms.Label();
             this.Btn_RemoverCusto = new System.Windows.Forms.Button();
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // ControlHost
@@ -47,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ControlHost.Location = new System.Drawing.Point(5, 5);
             this.ControlHost.Name = "ControlHost";
-            this.ControlHost.Size = new System.Drawing.Size(475, 670);
+            this.ControlHost.Size = new System.Drawing.Size(475, 640);
             this.ControlHost.TabIndex = 2;
             this.ControlHost.Text = "elementHost1";
             this.ControlHost.Child = null;
@@ -71,6 +72,7 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
+            this.columnHeader6,
             this.columnHeader4,
             this.columnHeader5});
             this.Lsv_CustosElemento.FullRowSelect = true;
@@ -98,20 +100,22 @@
             // 
             // columnHeader4
             // 
+            this.columnHeader4.DisplayIndex = 3;
             this.columnHeader4.Text = "Qntd";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // columnHeader5
             // 
+            this.columnHeader5.DisplayIndex = 4;
             this.columnHeader5.Text = "$ Total";
             this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Lbl_CustoTotal
             // 
             this.Lbl_CustoTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Lbl_CustoTotal.Location = new System.Drawing.Point(779, 651);
+            this.Lbl_CustoTotal.Location = new System.Drawing.Point(837, 651);
             this.Lbl_CustoTotal.Name = "Lbl_CustoTotal";
-            this.Lbl_CustoTotal.Size = new System.Drawing.Size(281, 23);
+            this.Lbl_CustoTotal.Size = new System.Drawing.Size(223, 23);
             this.Lbl_CustoTotal.TabIndex = 4;
             this.Lbl_CustoTotal.Text = "label1";
             this.Lbl_CustoTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -126,6 +130,10 @@
             this.Btn_RemoverCusto.Text = "Remover Custo";
             this.Btn_RemoverCusto.UseVisualStyleBackColor = true;
             this.Btn_RemoverCusto.Click += new System.EventHandler(this.Btn_RemoverCusto_Click);
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Dimensão";
             // 
             // Frm_VisualizarProjeto
             // 
@@ -156,5 +164,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Label Lbl_CustoTotal;
         private System.Windows.Forms.Button Btn_RemoverCusto;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }

@@ -178,6 +178,10 @@ namespace OrcamentosIfc.Migrations
                     b.Property<int>("ComposicaoAnaliticaId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Dimensao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ElementoId")
                         .HasColumnType("INTEGER");
 
@@ -205,6 +209,10 @@ namespace OrcamentosIfc.Migrations
                     b.Property<int>("ComposicaoSinteticaId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Dimensao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ElementoId")
                         .HasColumnType("INTEGER");
 
@@ -228,6 +236,10 @@ namespace OrcamentosIfc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Dimensao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ElementoId")
                         .HasColumnType("INTEGER");
