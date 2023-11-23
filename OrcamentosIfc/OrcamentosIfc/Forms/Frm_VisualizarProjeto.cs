@@ -74,7 +74,7 @@ namespace OrcamentosIfc.Forms
             _entidadeSelecionada = e.AddedItems[0] as IPersistEntity;
             _elementoSelecionado = e.AddedItems[0] as IIfcElement;
 
-            CarregarPropriedades(_elementoSelecionado);
+            //CarregarPropriedades(_elementoSelecionado);
 
             if (_entidadeSelecionada != null)
             {
@@ -84,27 +84,27 @@ namespace OrcamentosIfc.Forms
             RefreshItens();
         }
 
-        private void CarregarPropriedades(IIfcElement element)
-        {
-            if (element == null) return;
+        //private void CarregarPropriedades(IIfcElement element)
+        //{
+        //    if (element == null) return;
 
-            var context = new Xbim3DModelContext(_model);
-            context.CreateContext();
+        //    var context = new Xbim3DModelContext(_model);
+        //    context.CreateContext();
 
-            foreach (var item in context.ShapeInstances())
-            {
-                if (item.IfcProductLabel == element.EntityLabel)
-                {
-                    Debug.Print($"GlobalID: {element.GlobalId}");
-                    Debug.Print($"EntityLabel: {element.EntityLabel}");
-                    Debug.Print($"Volume: {item.BoundingBox.Volume.ToString()}");
-                    Debug.Print($"X: {item.BoundingBox.SizeX.ToString()}");
-                    Debug.Print($"Y: {item.BoundingBox.SizeY.ToString()}");
-                    Debug.Print($"Z: {item.BoundingBox.SizeZ.ToString()}");
-                }
-            }
+        //    foreach (var item in context.ShapeInstances())
+        //    {
+        //        if (item.IfcProductLabel == element.EntityLabel)
+        //        {
+        //            Debug.Print($"GlobalID: {element.GlobalId}");
+        //            Debug.Print($"EntityLabel: {element.EntityLabel}");
+        //            Debug.Print($"Volume: {item.BoundingBox.Volume.ToString()}");
+        //            Debug.Print($"X: {item.BoundingBox.SizeX.ToString()}");
+        //            Debug.Print($"Y: {item.BoundingBox.SizeY.ToString()}");
+        //            Debug.Print($"Z: {item.BoundingBox.SizeZ.ToString()}");
+        //        }
+        //    }
 
-        }
+        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -121,7 +121,12 @@ namespace OrcamentosIfc.Forms
         private void Frm_ItemSelecionado(object sender, Utils.CustomEventArgsItemSinapiSelecionado e)
         {
             var projeto = Parametros.ProjetoSelecionado;
-            var ifcId = _wpfControl.SelectedElement.EntityLabel.ToString();
+            var elementIfc = _wpfControl.SelectedElement as IIfcElement;
+
+            if (elementIfc == null) return;
+
+            var ifcId = elementIfc.GlobalId.ToString();
+            var ifcName = elementIfc.Name;
 
             //Carregar o elemento projeto
             var elemento = Parametros.AppDbContext.ElementosProjeto.FirstOrDefault(x => x.IfcId.ToUpper() == ifcId.ToUpper() && x.NomeProjeto.ToUpper() == projeto.ToUpper());
@@ -129,6 +134,7 @@ namespace OrcamentosIfc.Forms
             {
                 elemento = new ElementoProjeto();
                 elemento.IfcId = ifcId;
+                elemento.NomeElementoIfc = ifcName;
                 elemento.NomeProjeto = projeto;
                 Parametros.AppDbContext.ElementosProjeto.Add(elemento);
                 Parametros.AppDbContext.SaveChanges();
@@ -147,7 +153,7 @@ namespace OrcamentosIfc.Forms
             if (_entidadeSelecionada == null) return;
 
             var projeto = Parametros.ProjetoSelecionado;
-            var ifcId = _entidadeSelecionada.EntityLabel.ToString();
+            var ifcId = _elementoSelecionado.GlobalId.ToString();
             var elemento = Parametros.AppDbContext.ElementosProjeto.FirstOrDefault(x => x.IfcId.ToUpper() == ifcId.ToUpper() && x.NomeProjeto.ToUpper() == projeto.ToUpper());
             if (elemento == null) return;
 
@@ -227,6 +233,7 @@ namespace OrcamentosIfc.Forms
                 elemento.RemoveCusto(item.Tag);
             }
             RefreshItens();
+            Parametros.AtualizarVisaoGrafica();
         }
 
         public delegate void ItemSelecionadoEventArgs(object sender, CostumEventArgsElementoIfcSelecionado e);

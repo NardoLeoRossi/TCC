@@ -82,9 +82,6 @@ namespace OrcamentosIfc.IFC
             rel.RelatingPropertyDefinition = ps;
             ps.Name = "Nome Teste";
             
-
-            //ps.GlobalId = new IfcGloballyUniqueId(Guid.NewGuid().ToString());
-
             //Tipo de item
             ps.HasProperties.Add(model.Instances.New<IfcPropertySingleValue>(p =>
             {

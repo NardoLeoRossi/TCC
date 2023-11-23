@@ -51,6 +51,15 @@
     This section specifies references for the project.
   -->
   <ItemGroup>
+    <Reference Include="EPPlus, Version=7.0.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.0.1\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
     <Reference Include="Esent.Interop, Version=1.9.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ManagedEsent.1.9.4\lib\net40\Esent.Interop.dll</HintPath>
     </Reference>
@@ -123,6 +132,9 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
     <Reference Include="MoreLinq, Version=3.4.2.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.3.4.2\lib\net462\MoreLinq.dll</HintPath>
     </Reference>
@@ -154,7 +166,7 @@
       <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -192,6 +204,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -285,6 +299,7 @@
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Data\AppConfiguration.cs" />
     <Compile Include="Data\Interfaces\IItemSinapi.cs" />
+    <Compile Include="Data\Models\VisaoGrafica.cs" />
     <Compile Include="Data\Models\ComposicaoAnalitica.cs" />
     <Compile Include="Data\Models\ComposicaoSintetica.cs" />
     <Compile Include="Data\Models\ElementoComposicaoAnalitica.cs" />
@@ -304,12 +319,24 @@
     <Compile Include="IFC\ExportarProjeto.cs" />
     <Compile Include="IFC\Extensoes.cs" />
     <Compile Include="IFC\LoadProjetos.cs" />
-    <Compile Include="Migrations\20231121021355_InitialCreate.cs" />
-    <Compile Include="Migrations\20231121021355_InitialCreate.designer.cs">
-      <DependentUpon>20231121021355_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\20231121215727_InitialCreate.cs" />
+    <Compile Include="Migrations\20231121215727_InitialCreate.designer.cs">
+      <DependentUpon>20231121215727_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Parametros.cs" />
+    <Compile Include="wsTbd.cs">
+      <DependentUpon>OrcamentosIfc.xlsx</DependentUpon>
+    </Compile>
+    <Compile Include="wsTbd.Designer.cs">
+      <DependentUpon>wsTbd.Designer.xml</DependentUpon>
+    </Compile>
+    <Compile Include="wsTbDados.cs">
+      <DependentUpon>OrcamentosIfc.xlsx</DependentUpon>
+    </Compile>
+    <Compile Include="wsTbDados.Designer.cs">
+      <DependentUpon>wsTbDados.Designer.xml</DependentUpon>
+    </Compile>
     <Compile Include="Sinapi\Frm_SelecionarItemsSinapi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -317,11 +344,11 @@
       <DependentUpon>Frm_SelecionarItemsSinapi.cs</DependentUpon>
     </Compile>
     <Compile Include="Sinapi\LoadSinapi.cs" />
-    <Compile Include="Planilha1.cs">
+    <Compile Include="wsVisaoGrafica.cs">
       <DependentUpon>OrcamentosIfc.xlsx</DependentUpon>
     </Compile>
-    <Compile Include="Planilha1.Designer.cs">
-      <DependentUpon>Planilha1.Designer.xml</DependentUpon>
+    <Compile Include="wsVisaoGrafica.Designer.cs">
+      <DependentUpon>wsVisaoGrafica.Designer.xml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rbn_Orcamentos.cs" />
@@ -347,6 +374,9 @@
     <EmbeddedResource Include="Sinapi\Frm_SelecionarItemsSinapi.resx">
       <DependentUpon>Frm_SelecionarItemsSinapi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="wsTbDados.resx">
+      <DependentUpon>wsTbDados.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="OrcamentosIfc.xlsx" />
     <None Include="packages.config" />
@@ -366,19 +396,28 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Planilha1.Designer.xml">
-      <DependentUpon>Planilha1.cs</DependentUpon>
+    <None Include="wsVisaoGrafica.Designer.xml">
+      <DependentUpon>wsVisaoGrafica.cs</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Rbn_Orcamentos.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="wsTbDados.Designer.xml">
+      <DependentUpon>wsTbDados.cs</DependentUpon>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\WinformsAccessibleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wsTbd.Designer.xml">
+      <DependentUpon>wsTbd.cs</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -416,8 +455,10 @@
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="OrcamentosIfc.xlsx" HostPackage="{3F2B7691-D1D1-402F-9370-2704A737CF60}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="XLS" Language="CS" TemplatesPath="VSTOTemplates" DebugInfoExeName="C:\Program Files\Microsoft Office\root\Office16\excel.exe" DebugInfoCommandLine="/x &quot;[$OUTPUT]OrcamentosIfc.xlsx&quot;" />
         <Host Name="Excel Document" Path=".\OrcamentosIfc.xlsx" GeneratedCodeNamespace="OrcamentosIfc">
-          <HostItem Name="Planilha1" Code="Planilha1.cs" CanonicalName="Planilha1" DisplayName="Planilha1" Blueprint="Planilha1.Designer.xml" GeneratedCode="Planilha1.Designer.cs" />
           <HostItem Name="ThisWorkbook" Code="ThisWorkbook.cs" CanonicalName="ThisWorkbook" Blueprint="ThisWorkbook.Designer.xml" GeneratedCode="ThisWorkbook.Designer.cs" />
+          <HostItem Name="Planilha3" Code="wsTbd.cs" CanonicalName="Planilha3" DisplayName="Planilha3" Blueprint="wsTbd.Designer.xml" GeneratedCode="wsTbd.Designer.cs" />
+          <HostItem Name="Planilha2" Code="wsTbDados.cs" CanonicalName="Planilha2" DisplayName="Planilha2" Blueprint="wsTbDados.Designer.xml" GeneratedCode="wsTbDados.Designer.cs" />
+          <HostItem Name="Planilha1" Code="wsVisaoGrafica.cs" CanonicalName="Planilha1" DisplayName="Planilha1" Blueprint="wsVisaoGrafica.Designer.xml" GeneratedCode="wsVisaoGrafica.Designer.cs" />
         </Host>
       </FlavorProperties>
     </VisualStudio>

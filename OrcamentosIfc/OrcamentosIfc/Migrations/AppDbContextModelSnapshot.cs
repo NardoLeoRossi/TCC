@@ -273,6 +273,11 @@ namespace OrcamentosIfc.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(255);
 
+                    b.Property<string>("NomeElementoIfc")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(255);
+
                     b.Property<string>("NomeProjeto")
                         .IsRequired()
                         .HasColumnType("TEXT")

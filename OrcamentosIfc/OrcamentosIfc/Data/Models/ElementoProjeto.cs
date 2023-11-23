@@ -24,6 +24,10 @@ namespace OrcamentosIfc.Data.Models
         [MaxLength(255)]
         public string IfcId { get; set; }
 
+        [Required]
+        [MaxLength(255)]
+        public string NomeElementoIfc{ get; set; }
+
         public List<ElementoComposicaoAnalitica> ComposicoesAnaliticas { get; set; }
 
         public List<ElementoComposicaoSintetica> ComposicoesSinteticas { get; set; }

@@ -346,6 +346,7 @@ namespace OrcamentosIfc.Sinapi
         {
             var handler = ItemSelecionado;
             if (handler != null) handler(this, e);
+            Parametros.AtualizarVisaoGrafica();
         }
 
         public void ElementoSelecionadoChange(object sender, CostumEventArgsElementoIfcSelecionado e)

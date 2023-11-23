@@ -11,12 +11,16 @@ namespace OrcamentosIfc
 {
     public partial class ThisWorkbook
     {
-        public AppDbContext DbContext { get; private set; }
 
         private void ThisWorkbook_Startup(object sender, System.EventArgs e)
         {
-            AppConfiguration.CreateDataBaseSqlLite();
-            DbContext= new AppDbContext();
+            //Criação do banco de dados
+            AppConfiguration.CreateDataBaseSqlLite();            
+            
+            //Ajustar nomes das planilhas
+            Globals.wsVisaoGrafica.Name = "Visão Gráfica";
+            Globals.wsTbd.Name = "Tabelas dinâmicas";
+            Globals.wsTbDados.Name = "Base de Dados";
         }
 
         private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)

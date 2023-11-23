@@ -31,5 +31,8 @@ namespace OrcamentosIfc
         public DbSet<ElementoComposicaoSintetica> ElementoComposicaoSintetica { get; set; }
 
         public DbSet<ElementoInsumo> ElementoInsumo { get; set; }
+
+        public DbSet<VisaoGrafica> ItensVisaoGrafica { get; set; }
+
     }
 }

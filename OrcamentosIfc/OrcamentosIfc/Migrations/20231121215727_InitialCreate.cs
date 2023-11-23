@@ -71,7 +71,8 @@ namespace OrcamentosIfc.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     NomeProjeto = table.Column<string>(maxLength: 255, nullable: false),
-                    IfcId = table.Column<string>(maxLength: 255, nullable: false)
+                    IfcId = table.Column<string>(maxLength: 255, nullable: false),
+                    NomeElementoIfc = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {

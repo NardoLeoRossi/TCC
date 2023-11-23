@@ -13,9 +13,11 @@ namespace OrcamentosIfc {
     
     
     /// 
-    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(1)]
+    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(2)]
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-    public sealed partial class Planilha1 : Microsoft.Office.Tools.Excel.WorksheetBase {
+    public sealed partial class wsTbDados : Microsoft.Office.Tools.Excel.WorksheetBase {
+        
+        internal Microsoft.Office.Tools.Excel.ListObject tbDADOS;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "17.0.0.0")]
         private global::System.Object missing = global::System.Type.Missing;
@@ -23,8 +25,8 @@ namespace OrcamentosIfc {
         /// 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Planilha1(global::Microsoft.Office.Tools.Excel.Factory factory, global::System.IServiceProvider serviceProvider) : 
-                base(factory, serviceProvider, "Planilha1", "Planilha1") {
+        public wsTbDados(global::Microsoft.Office.Tools.Excel.Factory factory, global::System.IServiceProvider serviceProvider) : 
+                base(factory, serviceProvider, "Planilha2", "Planilha2") {
         }
         
         /// 
@@ -33,7 +35,7 @@ namespace OrcamentosIfc {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void Initialize() {
             base.Initialize();
-            Globals.Planilha1 = this;
+            Globals.wsTbDados = this;
             global::System.Windows.Forms.Application.EnableVisualStyles();
             this.InitializeCachedData();
             this.InitializeControls();
@@ -114,6 +116,7 @@ namespace OrcamentosIfc {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void BeginInitialization() {
             this.BeginInit();
+            this.tbDADOS.BeginInit();
         }
         
         /// 
@@ -121,6 +124,7 @@ namespace OrcamentosIfc {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "17.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void EndInitialization() {
+            this.tbDADOS.EndInit();
             this.EndInit();
         }
         
@@ -129,6 +133,7 @@ namespace OrcamentosIfc {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "17.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
+            this.tbDADOS = Globals.Factory.CreateListObject(null, null, "Planilha2:tbDADOS", "tbDADOS", this);
         }
         
         /// 
@@ -136,6 +141,13 @@ namespace OrcamentosIfc {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "17.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeComponents() {
+            // 
+            // tbDADOS
+            // 
+            this.tbDADOS.DefaultDataSourceUpdateMode = System.Windows.Forms.DataSourceUpdateMode.Never;
+            // 
+            // wsTbDados
+            // 
         }
         
         /// 
@@ -144,19 +156,28 @@ namespace OrcamentosIfc {
         private bool NeedsFill(string MemberName) {
             return this.DataHost.NeedsFill(this, MemberName);
         }
+        
+        /// 
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "17.0.0.0")]
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        protected override void OnShutdown() {
+            this.tbDADOS.Dispose();
+            base.OnShutdown();
+        }
     }
     
     internal sealed partial class Globals {
         
-        private static Planilha1 _Planilha1;
+        private static wsTbDados _wsTbDados;
         
-        internal static Planilha1 Planilha1 {
+        internal static wsTbDados wsTbDados {
             get {
-                return _Planilha1;
+                return _wsTbDados;
             }
             set {
-                if ((_Planilha1 == null)) {
-                    _Planilha1 = value;
+                if ((_wsTbDados == null)) {
+                    _wsTbDados = value;
                 }
                 else {
                     throw new System.NotSupportedException();
