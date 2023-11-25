@@ -90,7 +90,19 @@ namespace OrcamentosIfc
             Range startCell = Globals.wsTbDados.Cells[2, 1];
             Range endCell = Globals.wsTbDados.Cells[2 + itens.Count - 1 , 9];
             Range writeRange = Globals.wsTbDados.Range[startCell, endCell];
-            writeRange.Value2 = dados;
+
+            try
+            {
+                writeRange.Value2 = dados;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    writeRange.Value2 = dados;
+                }
+                catch (Exception e){}
+            }
 
             Globals.ThisWorkbook.RefreshAll();
         }

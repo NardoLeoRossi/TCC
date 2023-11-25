@@ -34,11 +34,13 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Lbl_CustoTotal = new System.Windows.Forms.Label();
             this.Btn_RemoverCusto = new System.Windows.Forms.Button();
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Txt_NomeElemento = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ControlHost
@@ -48,7 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ControlHost.Location = new System.Drawing.Point(5, 5);
             this.ControlHost.Name = "ControlHost";
-            this.ControlHost.Size = new System.Drawing.Size(475, 640);
+            this.ControlHost.Size = new System.Drawing.Size(475, 620);
             this.ControlHost.TabIndex = 2;
             this.ControlHost.Text = "elementHost1";
             this.ControlHost.Child = null;
@@ -98,15 +100,17 @@
             this.columnHeader3.Text = "$ Unit";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Dimensão";
+            // 
             // columnHeader4
             // 
-            this.columnHeader4.DisplayIndex = 3;
             this.columnHeader4.Text = "Qntd";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.DisplayIndex = 4;
             this.columnHeader5.Text = "$ Total";
             this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -131,24 +135,45 @@
             this.Btn_RemoverCusto.UseVisualStyleBackColor = true;
             this.Btn_RemoverCusto.Click += new System.EventHandler(this.Btn_RemoverCusto_Click);
             // 
-            // columnHeader6
+            // Txt_NomeElemento
             // 
-            this.columnHeader6.Text = "Dimensão";
+            this.Txt_NomeElemento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Txt_NomeElemento.Location = new System.Drawing.Point(5, 654);
+            this.Txt_NomeElemento.Name = "Txt_NomeElemento";
+            this.Txt_NomeElemento.Size = new System.Drawing.Size(475, 20);
+            this.Txt_NomeElemento.TabIndex = 6;
+            this.Txt_NomeElemento.Leave += new System.EventHandler(this.Txt_NomeElemento_Leave);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(2, 628);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(476, 23);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Nome do Elemento";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Frm_VisualizarProjeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.Txt_NomeElemento);
             this.Controls.Add(this.Btn_RemoverCusto);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Lbl_CustoTotal);
             this.Controls.Add(this.Lsv_CustosElemento);
             this.Controls.Add(this.ControlHost);
             this.Controls.Add(this.button2);
             this.Name = "Frm_VisualizarProjeto";
             this.Text = "Frm_VisualizarProjeto";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Frm_VisualizarProjeto_FormClosed);
             this.Load += new System.EventHandler(this.Frm_VisualizarProjeto_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -165,5 +190,7 @@
         private System.Windows.Forms.Label Lbl_CustoTotal;
         private System.Windows.Forms.Button Btn_RemoverCusto;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.TextBox Txt_NomeElemento;
+        private System.Windows.Forms.Label label1;
     }
 }

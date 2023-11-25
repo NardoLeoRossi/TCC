@@ -141,7 +141,7 @@ namespace OrcamentosIfc
             }
 
             var frm = new Frm_VisualizarProjeto();
-            frm.ShowDialog();
+            frm.Show();
         }
 
         public void Btn_ExportarProjeto_Click(Office.IRibbonControl control)

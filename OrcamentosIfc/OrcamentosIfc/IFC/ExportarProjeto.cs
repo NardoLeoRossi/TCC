@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OrcamentosIfc.Data;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Xbim.Ifc;
 using Xbim.Ifc2x3.Kernel;
 using Xbim.Ifc2x3.MeasureResource;
+using Xbim.Ifc2x3.ProductExtension;
 using Xbim.Ifc2x3.PropertyResource;
-using Xbim.Ifc2x3.StructuralElementsDomain;
-using Xbim.Ifc2x3.UtilityResource;
 using Xbim.ModelGeometry.Scene;
+using OrcamentosIfc.Data;
+using System.Windows.Forms;
+using System.Windows.Media.Animation;
 
 namespace OrcamentosIfc.IFC
 {
@@ -17,19 +18,31 @@ namespace OrcamentosIfc.IFC
     {
         public static void ExportarProjetoSelecionado()
         {
+            //Capturar o caminho do arquivo do projeto
             var path = Path.Combine(AppConfiguration.GetProjectsPath(), Parametros.ProjetoSelecionado);
-            var model = IfcStore.Open(path);
-            var context = new Xbim3DModelContext(model);
-            context.CreateContext();
 
-            //Capturar os elementos criados para o projeto selecionado
+            //Definir o caminho de saída
+            var outputPath = "";
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Title = "Salvar Como",
+                FileName = Path.GetFileName(path),
+            };
+            if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+            outputPath = saveFileDialog.FileName;
+
+            //Carregar o modelo IFC completo
+            var model = IfcStore.Open(path);
+
+            //Capturar os elementos com itens de custo relacionados
             var elementos = Parametros.AppDbContext.ElementosProjeto
                                             .Include(x => x.Insumos)
                                             .Include(x => x.ComposicoesAnaliticas)
                                             .Include(x => x.ComposicoesSinteticas)
                                             .Where(x => x.NomeProjeto.ToUpper() == Parametros.ProjetoSelecionado.ToUpper()).ToList();
 
-            using (var tr = model.BeginTransaction("Adicionar Propriedade"))
+            //Criar uma transaçaõ de alteração no modelo IFC
+            using (var tr = model.BeginTransaction("Exportar Projeto"))
             {
                 //Percorrer todos os elementos 
                 foreach (var ep in elementos)
@@ -38,7 +51,12 @@ namespace OrcamentosIfc.IFC
                     ep.LoadCustos();
 
                     //Carregar o elemento
-                    var elementoIfc = model.Instances.FirstOrDefault<IfcBuildingElementPart>(x => x.EntityLabel.ToString().ToUpper() == ep.IfcId.ToUpper());
+                    var elementoIfc = model.Instances.FirstOrDefault<IfcElement>(x => x.EntityLabel.ToString().ToUpper() == ep.IfcId.ToUpper());
+
+                    //Criar o relacionamento de propriedades
+                    var rel = model.Instances.New<IfcRelDefinesByProperties>();
+                    rel.RelatedObjects.Add(elementoIfc);
+                    rel.Name = "Orçamento";
 
                     //Se o elemento for localizado
                     if (elementoIfc != null)
@@ -47,41 +65,45 @@ namespace OrcamentosIfc.IFC
                         if (ep.Insumos != null)
                             foreach (var item in ep.Insumos)
                             {
-                                var rel = AdicionarPropriedades(model, elementoIfc, "Insumo", item.Insumo.Codigo, item.Quantidade.ToString(), item.Insumo.Preco);
+                                AdicionarPropriedades(model, rel, "Insumo", item.Insumo.Codigo,
+                                                        item.Quantidade.ToString(), item.Insumo.Preco, item.Insumo.Prefixo, item.Dimensao, item.Insumo.Unidade);
                             }
 
                         //Percorrer todas as composições sinteticas
                         if (ep.ComposicoesSinteticas != null)
                             foreach (var item in ep.ComposicoesSinteticas)
                             {
-                                var rel = AdicionarPropriedades(model, elementoIfc, "Composição Sintética", item.ComposicaoSintetica.CodigoComposicao, item.Quantidade.ToString(), item.ComposicaoSintetica.CustoTotal);
+                                AdicionarPropriedades(model, rel, "Composição Sintética",
+                                                    item.ComposicaoSintetica.CodigoComposicao, item.Quantidade.ToString(),
+                                                    item.ComposicaoSintetica.CustoTotal, item.ComposicaoSintetica.Prefixo, item.Dimensao, item.ComposicaoSintetica.Unidade);
                             }
 
                         //Percorrer todas as composições analiticas
                         if (ep.ComposicoesAnaliticas != null)
                             foreach (var item in ep.ComposicoesAnaliticas)
                             {
-                                var rel = AdicionarPropriedades(model, elementoIfc, "Composição Sintética", item.ComposicaoAnalitica.CodigoComposicao, item.Quantidade.ToString(), item.ComposicaoAnalitica.CustoTotal);
+                                AdicionarPropriedades(model, rel, "Composição Sintética",
+                                                    item.ComposicaoAnalitica.CodigoComposicao, item.Quantidade.ToString(),
+                                                    item.ComposicaoAnalitica.CustoTotal, item.ComposicaoAnalitica.Prefixo, item.Dimensao, item.ComposicaoAnalitica.Unidade);
                             }
                     }
                 }
 
+                //Finalizar a transação de alterações
                 tr.Commit();
             }
 
-            model.SaveAs(@"C:\Users\Cinvau\OneDrive\Área de Trabalho\Trabalho Sistemas Estruturais III 4.0 - Edited.ifc");
+            //Salvar o modelo
+            model.SaveAs(outputPath);
         }
 
-        private static IfcRelDefinesByProperties AdicionarPropriedades(IfcStore model, IfcBuildingElementPart elemento, string tipoItem, string codigoSinapi, string quantidade, decimal custoUnitario)
+        private static void AdicionarPropriedades(IfcStore model, IfcRelDefinesByProperties rel, string tipoItem, string codigoSinapi, 
+                                                    string quantidade, decimal custoUnitario, string prefixoSinapi, string dimensao, string unidade)
         {
-            var rel = model.Instances.New<IfcRelDefinesByProperties>();
-            rel.RelatedObjects.Add(elemento);
-            //rel.GlobalId = new IfcGloballyUniqueId(Guid.NewGuid().ToString());
-
             var ps = model.Instances.New<IfcPropertySet>();
             rel.RelatingPropertyDefinition = ps;
-            ps.Name = "Nome Teste";
-            
+            ps.Name = "Custo";
+
             //Tipo de item
             ps.HasProperties.Add(model.Instances.New<IfcPropertySingleValue>(p =>
             {
@@ -96,11 +118,11 @@ namespace OrcamentosIfc.IFC
                 p.NominalValue = new IfcLabel(codigoSinapi);
             }));
 
-            //Quantidade
+            //Unidade do item sinapi
             ps.HasProperties.Add(model.Instances.New<IfcPropertySingleValue>(p =>
             {
-                p.Name = "Quantidade";
-                p.NominalValue = new IfcLabel(quantidade);
+                p.Name = "Unidade Sinapi";
+                p.NominalValue = new IfcLabel(unidade);
             }));
 
             //Quantidade
@@ -108,6 +130,13 @@ namespace OrcamentosIfc.IFC
             {
                 p.Name = "Quantidade";
                 p.NominalValue = new IfcLabel(quantidade);
+            }));
+
+            //Dimensao
+            ps.HasProperties.Add(model.Instances.New<IfcPropertySingleValue>(p =>
+            {
+                p.Name = "Dimensão";
+                p.NominalValue = new IfcLabel(dimensao);
             }));
 
             //Custo unitário
@@ -124,7 +153,12 @@ namespace OrcamentosIfc.IFC
                 p.NominalValue = new IfcLabel((custoUnitario * Decimal.Parse(quantidade)).ToString());
             }));
 
-            return rel;
+            //Referencia SINAPI
+            ps.HasProperties.Add(model.Instances.New<IfcPropertySingleValue>(p =>
+            {
+                p.Name = "Referência SINAPI";
+                p.NominalValue = new IfcLabel(prefixoSinapi);
+            }));
         }
     }
 }

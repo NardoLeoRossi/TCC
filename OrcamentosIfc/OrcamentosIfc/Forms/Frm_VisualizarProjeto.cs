@@ -29,6 +29,7 @@ using Xbim.Common.Geometry;
 using Xbim.Geometry.Engine.Interop;
 using Xbim.Ifc2x3.Interfaces;
 using OrcamentosIfc.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace OrcamentosIfc.Forms
 {
@@ -80,6 +81,11 @@ namespace OrcamentosIfc.Forms
             {
                 OnItemSelecionado(new CostumEventArgsElementoIfcSelecionado(_elementoSelecionado, _model));
             }
+
+            if (_elementoSelecionado != null)
+                Txt_NomeElemento.Text = _elementoSelecionado.Name;
+            else
+                Txt_NomeElemento.Text = string.Empty;
 
             RefreshItens();
         }
@@ -223,7 +229,7 @@ namespace OrcamentosIfc.Forms
             if (_entidadeSelecionada == null) return;
 
             var projeto = Parametros.ProjetoSelecionado;
-            var ifcId = _entidadeSelecionada.EntityLabel.ToString();
+            var ifcId = _elementoSelecionado.GlobalId.ToString();
 
             var elemento = Parametros.AppDbContext.ElementosProjeto.FirstOrDefault(x => x.IfcId.ToUpper() == ifcId.ToUpper() && x.NomeProjeto.ToUpper() == projeto.ToUpper());
             if (elemento == null) return;
@@ -245,6 +251,40 @@ namespace OrcamentosIfc.Forms
             var handler = ElementoSelecionadoChange;
             if (handler != null) handler(this, e);
         }
+
+        private void Txt_NomeElemento_Leave(object sender, EventArgs e)
+        {
+            using (var tr = _model.BeginTransaction("Adicionar Propriedade"))
+            {
+                var element = _model.Instances.FirstOrDefault<IfcElement>(x => x.GlobalId == _elementoSelecionado.GlobalId);
+
+                if (element != null)
+                {
+                    if (element.Name != Txt_NomeElemento.Text)
+                    {
+                        element.Name = Txt_NomeElemento.Text;
+                        _elementoSelecionado.Name = Txt_NomeElemento.Text;
+                        tr.Commit();
+
+                        var path = Path.Combine(AppConfiguration.GetProjectsPath(), Parametros.ProjetoSelecionado);
+                        _model.SaveAs(path);
+
+                        var sql = $@"
+                                UPDATE ElementosProjeto SET 
+                                    NomeElementoIfc = '{Txt_NomeElemento.Text}'
+                                    WHERE
+                                        IfcId = '{element.GlobalId}'";
+
+                        Parametros.AppDbContext.Database.ExecuteSqlRaw(sql);
+                        Parametros.AppDbContext.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        private void Frm_VisualizarProjeto_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Parametros.AtualizarVisaoGrafica();
+        }
     }
 }
-
