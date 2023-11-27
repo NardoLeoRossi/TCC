@@ -11,11 +11,9 @@ namespace OrcamentosIfc.Data.Models
 {
     public class Insumo : IItemSinapi
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
 
         [MaxLength(10)]
+        [Key]
         public string Codigo { get;  set; }
 
         [MaxLength(255)]

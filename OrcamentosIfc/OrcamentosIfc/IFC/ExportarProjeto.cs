@@ -37,8 +37,7 @@ namespace OrcamentosIfc.IFC
             //Capturar os elementos com itens de custo relacionados
             var elementos = Parametros.AppDbContext.ElementosProjeto
                                             .Include(x => x.Insumos)
-                                            .Include(x => x.ComposicoesAnaliticas)
-                                            .Include(x => x.ComposicoesSinteticas)
+                                            .Include(x => x.Composicoes)
                                             .Where(x => x.NomeProjeto.ToUpper() == Parametros.ProjetoSelecionado.ToUpper()).ToList();
 
             //Criar uma transaçaõ de alteração no modelo IFC
@@ -70,21 +69,12 @@ namespace OrcamentosIfc.IFC
                             }
 
                         //Percorrer todas as composições sinteticas
-                        if (ep.ComposicoesSinteticas != null)
-                            foreach (var item in ep.ComposicoesSinteticas)
+                        if (ep.Composicoes != null)
+                            foreach (var item in ep.Composicoes)
                             {
                                 AdicionarPropriedades(model, rel, "Composição Sintética",
-                                                    item.ComposicaoSintetica.CodigoComposicao, item.Quantidade.ToString(),
-                                                    item.ComposicaoSintetica.CustoTotal, item.ComposicaoSintetica.Prefixo, item.Dimensao, item.ComposicaoSintetica.Unidade);
-                            }
-
-                        //Percorrer todas as composições analiticas
-                        if (ep.ComposicoesAnaliticas != null)
-                            foreach (var item in ep.ComposicoesAnaliticas)
-                            {
-                                AdicionarPropriedades(model, rel, "Composição Sintética",
-                                                    item.ComposicaoAnalitica.CodigoComposicao, item.Quantidade.ToString(),
-                                                    item.ComposicaoAnalitica.CustoTotal, item.ComposicaoAnalitica.Prefixo, item.Dimensao, item.ComposicaoAnalitica.Unidade);
+                                                    item.Composicao.CodigoComposicao, item.Quantidade.ToString(),
+                                                    item.Composicao.CustoTotal, item.Composicao.Prefixo, item.Dimensao, item.Composicao.Unidade);
                             }
                     }
                 }

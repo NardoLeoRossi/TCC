@@ -42,11 +42,12 @@ namespace OrcamentosIfc.Sinapi
             LBL_Referência.Text = Parametros.PeriodoSinapiSelecionado;
             Insumos_Configure();
             Sinteticas_Configure();
-            Analiticas_Configure();
             LoadComboboxes();
 
             Lbl_Volume.Click += SelecionarDimensao;
-            Lbl_Area.Click += SelecionarDimensao;
+            Lbl_AreaXY.Click += SelecionarDimensao;
+            Lbl_AreaXZ.Click += SelecionarDimensao;
+            Lbl_AreaYZ.Click += SelecionarDimensao;
             Lbl_Comprimento.Click += SelecionarDimensao;
             Lbl_Espessura.Click += SelecionarDimensao;
             Lbl_Altura.Click += SelecionarDimensao;
@@ -110,7 +111,7 @@ namespace OrcamentosIfc.Sinapi
 
         #region Composições Sintéticas
 
-        private List<ComposicaoSintetica> _sinteticas;
+        private List<Composicao> _sinteticas;
 
         private void Sinteticas_Configure()
         {
@@ -136,7 +137,7 @@ namespace OrcamentosIfc.Sinapi
             var origemPreceo = ((TextBox)Lst_Sinteticas.Columns[3].Tag).Text.ToUpper();
             var preco = ((TextBox)Lst_Sinteticas.Columns[4].Tag).Text.ToUpper();
 
-            var result = from s in _appdbContext.ComposicoesSinteticas
+            var result = from s in _appdbContext.Composicoes
                          where
                             (s.Prefixo == Parametros.PeriodoSinapiSelecionado)
                             && s.DescricaoClasse.ToUpper() == classe
@@ -159,67 +160,6 @@ namespace OrcamentosIfc.Sinapi
             foreach (var s in _sinteticas)
             {
                 var item = Lst_Sinteticas.Items.Add(s.CodigoComposicao);
-                item.SubItems.Add(s.DescricaoComposicao);
-                item.SubItems.Add(s.Unidade);
-                item.SubItems.Add(s.OrigemPreco);
-                item.SubItems.Add(s.CustoTotal.ToString());
-                item.Tag = s;
-            }
-        }
-
-        #endregion
-
-        #region Composições analiticas
-
-        private List<ComposicaoAnalitica> _analiticas;
-
-        private void Analiticas_Configure()
-        {
-            CriarFiltros(Lst_Analiticas, Pnl_Analiticas, TbAnaliticasFiltro_TextChanged);
-            Analiticas_Load();
-            Cbb_AnaliticaClasse.TextChanged += TbAnaliticasFiltro_TextChanged;
-            Cbb_AnaliticaTipo.TextChanged += TbAnaliticasFiltro_TextChanged;
-        }
-
-        private void TbAnaliticasFiltro_TextChanged(object sender, EventArgs e)
-        {
-            Analiticas_Load();
-        }
-
-        private void Analiticas_Load()
-        {
-            var classe = Cbb_AnaliticaClasse.Text.ToUpper();
-            var tipo = Cbb_AnaliticaTipo.Text.ToUpper();
-
-            var codigo = ((TextBox)Lst_Analiticas.Columns[0].Tag).Text.ToUpper();
-            var descricao = ((TextBox)Lst_Analiticas.Columns[1].Tag).Text.ToUpper();
-            var unidade = ((TextBox)Lst_Analiticas.Columns[2].Tag).Text.ToUpper();
-            var origemPreceo = ((TextBox)Lst_Analiticas.Columns[3].Tag).Text.ToUpper();
-            var preco = ((TextBox)Lst_Analiticas.Columns[4].Tag).Text.ToUpper();
-
-            var result = from s in _appdbContext.ComposicoesAnaliticas
-                         where
-                            (s.Prefixo == Parametros.PeriodoSinapiSelecionado)
-                            && s.DescricaoClasse.ToUpper() == classe
-                            && s.DescricaoTipo1.ToUpper() == tipo
-                            && (s.CodigoComposicao.ToUpper().Contains(codigo) || codigo == "")
-                            && (s.DescricaoComposicao.ToUpper().Contains(descricao) || descricao == "")
-                            && (s.Unidade.ToUpper().Contains(unidade) || unidade == "")
-                            && (s.OrigemPreco.ToUpper().Contains(origemPreceo) || origemPreceo == "")
-                            && (s.CustoTotal.ToString().Contains(preco) || preco == "")
-                         select s;
-
-            _analiticas = result.DistinctBy(c => c.CodigoComposicao).Take(250).ToList();
-
-            Analiticas_Show();
-        }
-
-        private void Analiticas_Show()
-        {
-            Lst_Analiticas.Items.Clear();
-            foreach (var s in _analiticas)
-            {
-                var item = Lst_Analiticas.Items.Add(s.CodigoComposicao);
                 item.SubItems.Add(s.DescricaoComposicao);
                 item.SubItems.Add(s.Unidade);
                 item.SubItems.Add(s.OrigemPreco);
@@ -276,13 +216,10 @@ namespace OrcamentosIfc.Sinapi
         private void LoadComboboxes()
         {
             Cbb_SinteticaClasse.SelectedIndexChanged += LoadComboboxTipo;
-            Cbb_AnaliticaClasse.SelectedIndexChanged += LoadComboboxTipo;
-
             Cbb_SinteticaClasse.Tag = Cbb_SinteticaTipo;
-            Cbb_AnaliticaClasse.Tag = Cbb_AnaliticaTipo;
 
             //Criar tupla sinteticas
-            var tuplaS = _appdbContext.ComposicoesSinteticas
+            var tuplaS = _appdbContext.Composicoes
                             .Select(s => Tuple.Create(s.DescricaoClasse, s.DescricaoTipo1));
             var classesS = tuplaS
                                 .Select(s => s.Item1)
@@ -292,19 +229,7 @@ namespace OrcamentosIfc.Sinapi
             Cbb_SinteticaClasse.Items.AddRange(classesS.ToArray());
             Cbb_SinteticaTipo.Tag = tuplaS.ToList();
 
-            //Criar tupla analiticas
-            var tuplaA = _appdbContext.ComposicoesAnaliticas
-                            .Select(a => Tuple.Create(a.DescricaoClasse, a.DescricaoTipo1));
-            var classesA = tuplaA
-                                .Select(a => a.Item1)
-                                .DistinctBy(a => a.ToString())
-                                .ToList()
-                                .OrderBy(a => a.ToString());
-            Cbb_AnaliticaClasse.Items.AddRange(classesA.ToArray());
-            Cbb_AnaliticaTipo.Tag = tuplaA.ToList();
-
             Cbb_SinteticaClasse.SelectedIndex = 0;
-            Cbb_AnaliticaClasse.SelectedIndex = 0;
         }
 
         private void LoadComboboxTipo(object sender, EventArgs e)
@@ -368,7 +293,9 @@ namespace OrcamentosIfc.Sinapi
                     Txt_Altura.Text = (item.BoundingBox.SizeZ / 1000).ToString("0.00");
                     Txt_Comprimento.Text = (item.BoundingBox.SizeX / 1000).ToString("0.00");
                     Txt_Espessura.Text = (item.BoundingBox.SizeY / 1000).ToString("0.00");
-                    Txt_Area.Text = ((item.BoundingBox.SizeX / 1000) * (item.BoundingBox.SizeZ / 1000)).ToString("0.00");
+                    Txt_AreaXY.Text = ((item.BoundingBox.SizeX / 1000) * (item.BoundingBox.SizeY / 1000)).ToString("0.00");
+                    Txt_AreaXZ.Text = ((item.BoundingBox.SizeX / 1000) * (item.BoundingBox.SizeZ / 1000)).ToString("0.00");
+                    Txt_AreaYZ.Text = ((item.BoundingBox.SizeY / 1000) * (item.BoundingBox.SizeZ / 1000)).ToString("0.00");
 
                     return;
                 }
@@ -391,7 +318,7 @@ namespace OrcamentosIfc.Sinapi
                 return;
             }
 
-            if(quantidade.Item1 == null)
+            if (quantidade.Item1 == null)
             {
                 MessageBox.Show("Quantidade inválida!");
                 return;
@@ -407,9 +334,17 @@ namespace OrcamentosIfc.Sinapi
             {
                 return new Tuple<string, decimal?>("Volume", ConvertQuantidade(Txt_Volume.Text));
             }
-            else if (Lbl_Area.BackColor != Color.White)
+            else if (Lbl_AreaXY.BackColor != Color.White)
             {
-                return new Tuple<string, decimal?>("Area", ConvertQuantidade(Txt_Area.Text));
+                return new Tuple<string, decimal?>("Area XY", ConvertQuantidade(Txt_AreaXY.Text));
+            }
+            else if (Lbl_AreaXZ.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Area XZ", ConvertQuantidade(Txt_AreaXZ.Text));
+            }
+            else if (Lbl_AreaYZ.BackColor != Color.White)
+            {
+                return new Tuple<string, decimal?>("Area YZ", ConvertQuantidade(Txt_AreaYZ.Text));
             }
             else if (Lbl_Comprimento.BackColor != Color.White)
             {
@@ -441,18 +376,11 @@ namespace OrcamentosIfc.Sinapi
 
                 }
             }
-            else if (MultiTab.SelectedTab.Text.Equals("Composições Analiticas"))
-            {
-                if (Lst_Analiticas.SelectedItems.Count > 0)
-                {
-                    return (ComposicaoAnalitica)Lst_Analiticas.SelectedItems[0].Tag;
-                }
-            }
-            else if (MultiTab.SelectedTab.Text.Equals("Composições Sintéticas"))
+            else if (MultiTab.SelectedTab.Text.Equals("Composições"))
             {
                 if (Lst_Sinteticas.SelectedItems.Count > 0)
                 {
-                    return (ComposicaoSintetica)Lst_Sinteticas.SelectedItems[0].Tag;
+                    return (Composicao)Lst_Sinteticas.SelectedItems[0].Tag;
                 }
             }
             return null;
@@ -462,13 +390,26 @@ namespace OrcamentosIfc.Sinapi
         {
 
             Lbl_Volume.BackColor = Color.White;
-            Lbl_Area.BackColor = Color.White;
+            Lbl_AreaXY.BackColor = Color.White;
+            Lbl_AreaXZ.BackColor = Color.White;
+            Lbl_AreaYZ.BackColor = Color.White;
             Lbl_Comprimento.BackColor = Color.White;
             Lbl_Espessura.BackColor = Color.White;
             Lbl_Altura.BackColor = Color.White;
             Lbl_Manual.BackColor = Color.White;
 
             ((Label)sender).BackColor = Color.Aqua;
+        }
+
+        private void Btn_DetalharComposicao_Click(object sender, EventArgs e)
+        {
+            if (Lst_Sinteticas.SelectedItems.Count == 0) return;
+
+            var i = Lst_Sinteticas.SelectedIndices[0];
+            var composicao = (Composicao)Lst_Sinteticas.Items[i].Tag;
+
+            var frm = new Frm_DetalhesComposicao(composicao);
+            frm.Show();
         }
     }
 }

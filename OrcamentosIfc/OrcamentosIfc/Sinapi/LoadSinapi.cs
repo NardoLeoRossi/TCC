@@ -13,14 +13,15 @@ using Microsoft.Office.Interop.Excel;
 using OrcamentosIfc.Data.Models;
 using OrcamentosIfc.Data;
 using System.Data.OleDb;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using System.Data;
 
 namespace OrcamentosIfc.Sinapi
 {
     public static class LoadSinapi
     {
-
         private static int _qntdInsumos = 0;
-        private static int _qntdAnalitico = 0;
         private static int _qntdSintetico = 0;
 
         public static void LoadNewSinapi()
@@ -38,8 +39,7 @@ namespace OrcamentosIfc.Sinapi
 
             MessageBox.Show($"Processo Concluído.\n" +
                 $"Insumos: {_qntdInsumos} Registro Importados\n" +
-                $"Composições Sintéticas: {_qntdSintetico} Registros Importados\n" +
-                $"Composições Análiticas: {_qntdAnalitico} Registros Importados",
+                $"Composições: {_qntdSintetico} Registros Importados\n",
                 "Orçamentos IFC",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -55,7 +55,7 @@ namespace OrcamentosIfc.Sinapi
 
                 foreach (var file in archive.Entries)
                 {
-                    if (Path.GetExtension(file.FullName).ToUpper().Equals(".XLSX"))
+                    if (Path.GetExtension(file.FullName).ToUpper().Equals(".XLSX") || Path.GetExtension(file.FullName).ToUpper().Equals(".XLS"))
                     {
                         var fullPath = Path.Combine(destinationPath, file.FullName);
                         if (File.Exists(fullPath)) File.Delete(fullPath);
@@ -65,12 +65,9 @@ namespace OrcamentosIfc.Sinapi
                 }
             }
 
-            //Definir o prefixo dos arquivos
-            var wb = Globals.ThisWorkbook.Application.ActiveWorkbook;
-            var prefix = GetPrefix(list.FirstOrDefault());
-
             //Insumos
-            var insumos = list.FirstOrDefault(x => x.ToUpper().Contains("_INSUMOS_"));
+            var insumos = list.FirstOrDefault(x => x.ToUpper().Contains("REF_INSUMOS_"));
+            var prefix = GetPrefix(insumos);
             LoadInsumos(insumos, prefix);
 
             //Composições sintetico
@@ -102,8 +99,10 @@ namespace OrcamentosIfc.Sinapi
             _qntdInsumos = 0;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
+                var rowsSize = Path.GetExtension(path).ToUpper().Equals("XLSX") ? "1048576" : "65536";
+
                 conn.Open();
-                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:E1048576]", conn);
+                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:E{rowsSize}]", conn);
                 using (OleDbDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
@@ -121,6 +120,8 @@ namespace OrcamentosIfc.Sinapi
                             _qntdInsumos++;
                         }
                     }
+
+                    dbContext.Database.ExecuteSqlRaw($"DELETE FROM Insumos WHERE PREFIXO = '{prefix}'");
                     dbContext.SaveChanges();
                 }
             }
@@ -133,54 +134,17 @@ namespace OrcamentosIfc.Sinapi
             _qntdSintetico = 0;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
+                var rowsSize = Path.GetExtension(path).ToUpper().Equals("XLSX") ? "1048576" : "65536";
+
                 conn.Open();
-                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:L1048576]", conn);
+                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:L{rowsSize}]", conn);
                 using (OleDbDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
                         if (dr[0].ToString() != "")
                         {
-                            var c = new ComposicaoSintetica();
-                            c.DescricaoClasse = dr[0].ToString();
-                            c.SiglaClasse = dr[1].ToString();
-                            c.DescricaoTipo1 = dr[2].ToString();
-                            c.SiglaTipo1 = dr[3].ToString();
-                            c.CodigoAgrupador = dr[4].ToString();
-                            c.DescricaoAgrupador = dr[5].ToString();
-                            c.CodigoComposicao= dr[6].ToString();
-                            c.DescricaoComposicao = dr[7].ToString();
-                            c.Unidade = dr[8].ToString();
-                            c.OrigemPreco = dr[9].ToString();
-                            c.CustoTotal = Convert.ToDecimal(dr[10].ToString());
-                            c.Vinculo = dr[11].ToString();
-                            c.Prefixo = prefix;
-
-                            dbContext.ComposicoesSinteticas.Add(c);
-                            _qntdSintetico++;
-                        }
-                    }
-                    dbContext.SaveChanges();
-                }
-            }
-        }
-
-        private static void LoadComposicoesAnalitico(string path, string prefix)
-        {
-            var connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={path};Extended Properties='Excel 12.0 Xml;HDR=YES;'";
-            var dbContext = new AppDbContext();
-            _qntdAnalitico= 0;
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            {
-                conn.Open();
-                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:AE1048576]", conn);
-                using (OleDbDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        if (dr[0].ToString() != "")
-                        {
-                            var c = new ComposicaoAnalitica();
+                            var c = new Composicao();
                             c.DescricaoClasse = dr[0].ToString();
                             c.SiglaClasse = dr[1].ToString();
                             c.DescricaoTipo1 = dr[2].ToString();
@@ -191,21 +155,56 @@ namespace OrcamentosIfc.Sinapi
                             c.DescricaoComposicao = dr[7].ToString();
                             c.Unidade = dr[8].ToString();
                             c.OrigemPreco = dr[9].ToString();
-                            if (!dr.IsDBNull(10)) c.CustoTotal = Convert.ToDecimal(dr[10].ToString());
-                            c.ItemTipo= dr[11].ToString();
-                            c.ItemCodigo= dr[12].ToString();
-                            c.ItemDescricao= dr[13].ToString();
-                            c.ItemUnidade= dr[14].ToString();
-                            c.ItemOrigemPreco= dr[15].ToString();
-                            if (!dr.IsDBNull(16)) c.ItemPrecoUnitario = Convert.ToDecimal(dr[16].ToString());
-                            if (!dr.IsDBNull(17)) c.ItemCustoTotal= Convert.ToDecimal(dr[17].ToString());
+                            c.CustoTotal = Convert.ToDecimal(dr[10].ToString());
+                            if (dr.FieldCount > 11) c.Vinculo = dr[11].ToString();
                             c.Prefixo = prefix;
-                            c.Vinculo = dr[30].ToString();
 
-                            dbContext.ComposicoesAnaliticas.Add(c);
-                            _qntdAnalitico++;
+                            dbContext.Composicoes.Add(c);
+                            _qntdSintetico++;
                         }
                     }
+
+                    dbContext.Database.ExecuteSqlRaw($"DELETE FROM Composicoes WHERE PREFIXO = '{prefix}'");
+
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
+        private static void LoadComposicoesAnalitico(string path, string prefix)
+        {
+            var connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={path};Extended Properties='Excel 12.0 Xml;HDR=YES;'";
+            var dbContext = new AppDbContext();
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                var rowsSize = Path.GetExtension(path).ToUpper().Equals("XLSX") ? "1048576" : "65536";
+
+                conn.Open();
+                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:AE{rowsSize}]", conn);
+                using (OleDbDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (dr.FieldCount > 13)
+                        {
+                            if (!String.IsNullOrEmpty(dr[12].ToString()))
+                            {
+                                var c = new ComposicaoItens();
+                                c.Codigo = dr[6].ToString();
+                                c.ItemTipo = dr[11].ToString();
+                                c.ComposicaoCodigoComposicao = dr[12].ToString();
+                                c.ItemCoeficiente = Convert.ToDecimal(dr[16].ToString());
+                                c.ItemPrecoUnitario = Convert.ToDecimal(dr[17].ToString());
+                                c.ItemCustoTotal = Convert.ToDecimal(dr[18].ToString());
+                                c.Prefixo = prefix;
+
+                                dbContext.ComposicoesItens.Add(c);
+                            }
+                        }
+                    }
+
+                    dbContext.Database.ExecuteSqlRaw($"DELETE FROM ComposicoesItens WHERE PREFIXO = '{prefix}'");
+
                     dbContext.SaveChanges();
                 }
             }
@@ -214,7 +213,38 @@ namespace OrcamentosIfc.Sinapi
         private static string GetTableName(OleDbConnection conn)
         {
             var dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-            return dt.Rows[0]["TABLE_NAME"].ToString().Replace("'", "");
+            var list = new List<String>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var tb = row["TABLE_NAME"].ToString();
+                if (tb.EndsWith("$'"))
+                {
+                    tb = tb.Replace("'", "");
+                    list.Add(tb);
+                }
+            }
+
+            if (list.Count > 1)
+            {
+                foreach (var tb in list)
+                {
+
+                    OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{tb}A0:A10]", conn);
+                    using (OleDbDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (dr[0].ToString().ToUpper().Contains("CLASSE"))
+                            {
+                                return tb;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list.FirstOrDefault();
         }
     }
 }

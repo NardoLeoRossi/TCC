@@ -183,34 +183,18 @@ namespace OrcamentosIfc.Forms
                     Lsv_CustosElemento.Items.Add(i);
                 }
 
-            if (elemento.ComposicoesAnaliticas != null)
-                foreach (var item in elemento.ComposicoesAnaliticas)
+            if (elemento.Composicoes != null)
+                foreach (var item in elemento.Composicoes)
                 {
-                    var i = new ListViewItem("Composição Analitica");
+                    var i = new ListViewItem("Composição");
                     i.Tag = item;
-                    i.SubItems.Add(item.ComposicaoAnalitica.DescricaoComposicao);
-                    i.SubItems.Add(item.ComposicaoAnalitica.CustoTotal.ToString());
+                    i.SubItems.Add(item.Composicao.DescricaoComposicao);
+                    i.SubItems.Add(item.Composicao.CustoTotal.ToString());
                     i.SubItems.Add(item.Dimensao);
                     i.SubItems.Add(item.Quantidade.ToString());
-                    i.SubItems.Add((item.ComposicaoAnalitica.CustoTotal * item.Quantidade).ToString());
+                    i.SubItems.Add((item.Composicao.CustoTotal * item.Quantidade).ToString());
 
-                    custoTotal += item.ComposicaoAnalitica.CustoTotal * item.Quantidade;
-
-                    Lsv_CustosElemento.Items.Add(i);
-                }
-
-            if (elemento.ComposicoesSinteticas != null)
-                foreach (var item in elemento.ComposicoesSinteticas)
-                {
-                    var i = new ListViewItem("Composição Sintética");
-                    i.Tag = item;
-                    i.SubItems.Add(item.ComposicaoSintetica.DescricaoComposicao);
-                    i.SubItems.Add(item.ComposicaoSintetica.CustoTotal.ToString());
-                    i.SubItems.Add(item.Dimensao);
-                    i.SubItems.Add(item.Quantidade.ToString());
-                    i.SubItems.Add((item.ComposicaoSintetica.CustoTotal * item.Quantidade).ToString());
-
-                    custoTotal += item.ComposicaoSintetica.CustoTotal * item.Quantidade;
+                    custoTotal += item.Composicao.CustoTotal * item.Quantidade;
 
                     Lsv_CustosElemento.Items.Add(i);
                 }

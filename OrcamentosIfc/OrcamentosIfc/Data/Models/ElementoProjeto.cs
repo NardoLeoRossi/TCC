@@ -28,21 +28,17 @@ namespace OrcamentosIfc.Data.Models
         [MaxLength(255)]
         public string NomeElementoIfc{ get; set; }
 
-        public List<ElementoComposicaoAnalitica> ComposicoesAnaliticas { get; set; }
+        [NotMapped]
+        public List<ElementoComposicao> Composicoes { get; set; }
 
-        public List<ElementoComposicaoSintetica> ComposicoesSinteticas { get; set; }
-
+        [NotMapped]
         public List<ElementoInsumo> Insumos { get; set; }
 
         public void AddItemCusto(IItemSinapi item, string dimensao, decimal qntd)
         {
-            if (item is ComposicaoAnalitica)
+            if (item is Composicao)
             {
-                AddItemCustoComposicaoAnalitica(item as ComposicaoAnalitica, dimensao, qntd);
-            }
-            else if (item is ComposicaoSintetica)
-            {
-                AddItemCustoComposicaoSintetica(item as ComposicaoSintetica, dimensao, qntd);
+                AddItemCustoComposicaoSintetica(item as Composicao, dimensao, qntd);
             }
             else if (item is Insumo)
             {
@@ -50,29 +46,16 @@ namespace OrcamentosIfc.Data.Models
             }
         }
 
-        private void AddItemCustoComposicaoAnalitica(ComposicaoAnalitica item, string dimensao, decimal qntd)
+        private void AddItemCustoComposicaoSintetica(Composicao item, string dimensao, decimal qntd)
         {
-            var custo = new ElementoComposicaoAnalitica
+            var custo = new ElementoComposicao
             {
                 Quantidade = qntd,
-                ComposicaoAnaliticaId = item.Id,
-                ElementoId = this.Id,
-                Dimensao = dimensao                
-            };
-            Parametros.AppDbContext.ElementoComposicaoAnalitica.Add(custo);
-            Parametros.AppDbContext.SaveChanges();
-        }
-
-        private void AddItemCustoComposicaoSintetica(ComposicaoSintetica item, string dimensao, decimal qntd)
-        {
-            var custo = new ElementoComposicaoSintetica
-            {
-                Quantidade = qntd,
-                ComposicaoSinteticaId = item.Id,
+                ComposicaoCodigo = item.CodigoComposicao,
                 ElementoId = this.Id,
                 Dimensao = dimensao
             };
-            Parametros.AppDbContext.ElementoComposicaoSintetica.Add(custo);
+            Parametros.AppDbContext.ElementoComposicao.Add(custo);
             Parametros.AppDbContext.SaveChanges();
         }
 
@@ -81,7 +64,7 @@ namespace OrcamentosIfc.Data.Models
             var custo = new ElementoInsumo
             {
                 Quantidade = qntd,
-                InsumoId = item.Id,
+                InsumoCodigo = item.Codigo,
                 ElementoId = this.Id,
                 Dimensao = dimensao
             };
@@ -91,13 +74,9 @@ namespace OrcamentosIfc.Data.Models
 
         public void RemoveCusto(object item)
         {
-            if (item is ElementoComposicaoAnalitica)
+            if (item is ElementoComposicao)
             {
-                Parametros.AppDbContext.ElementoComposicaoAnalitica.Remove(item as ElementoComposicaoAnalitica);
-            }
-            else if (item is ElementoComposicaoSintetica)
-            {
-                Parametros.AppDbContext.ElementoComposicaoSintetica.Remove(item as ElementoComposicaoSintetica);
+                Parametros.AppDbContext.ElementoComposicao.Remove(item as ElementoComposicao);
             }
             else if (item is ElementoInsumo)
             {
@@ -108,17 +87,13 @@ namespace OrcamentosIfc.Data.Models
 
         public void LoadCustos()
         {
-            ComposicoesAnaliticas = Parametros.AppDbContext.ElementoComposicaoAnalitica
-                                                                .Include(x => x.ComposicaoAnalitica)
-                                                                .Where(x => x.ElementoId == this.Id).ToList();
+            Composicoes = Parametros.AppDbContext.ElementoComposicao.Where(x => x.ElementoId == this.Id).ToList();
 
-            ComposicoesSinteticas = Parametros.AppDbContext.ElementoComposicaoSintetica
-                                                                .Include(x => x.ComposicaoSintetica)
-                                                                .Where(x => x.ElementoId == this.Id).ToList();
+            Composicoes.ForEach(x => x.LoadComposicao());
 
-            Insumos = Parametros.AppDbContext.ElementoInsumo
-                                                        .Include(x => x.Insumo)
-                                                        .Where(x => x.ElementoId == this.Id).ToList();
+            Insumos = Parametros.AppDbContext.ElementoInsumo.Where(x => x.ElementoId == this.Id).ToList();
+
+            Insumos.ForEach(x => x.LoadInsumo());
         }
     }
 }

@@ -301,10 +301,9 @@
     <Compile Include="Data\AppConfiguration.cs" />
     <Compile Include="Data\Interfaces\IItemSinapi.cs" />
     <Compile Include="Data\Models\VisaoGrafica.cs" />
-    <Compile Include="Data\Models\ComposicaoAnalitica.cs" />
-    <Compile Include="Data\Models\ComposicaoSintetica.cs" />
-    <Compile Include="Data\Models\ElementoComposicaoAnalitica.cs" />
-    <Compile Include="Data\Models\ElementoComposicaoSintetica.cs" />
+    <Compile Include="Data\Models\ComposicaoItens.cs" />
+    <Compile Include="Data\Models\Composicao.cs" />
+    <Compile Include="Data\Models\ElementoComposicao.cs" />
     <Compile Include="Data\Models\ElementoInsumo.cs" />
     <Compile Include="Data\Models\ElementoProjeto.cs" />
     <Compile Include="Data\Models\Insumo.cs" />
@@ -320,12 +319,18 @@
     <Compile Include="IFC\ExportarProjeto.cs" />
     <Compile Include="IFC\Extensoes.cs" />
     <Compile Include="IFC\LoadProjetos.cs" />
-    <Compile Include="Migrations\20231121215727_InitialCreate.cs" />
-    <Compile Include="Migrations\20231121215727_InitialCreate.designer.cs">
-      <DependentUpon>20231121215727_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\20231125195033_Initial.cs" />
+    <Compile Include="Migrations\20231125195033_Initial.designer.cs">
+      <DependentUpon>20231125195033_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Parametros.cs" />
+    <Compile Include="Sinapi\Frm_DetalhesComposicao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sinapi\Frm_DetalhesComposicao.Designer.cs">
+      <DependentUpon>Frm_DetalhesComposicao.cs</DependentUpon>
+    </Compile>
     <Compile Include="wsTbd.cs">
       <DependentUpon>OrcamentosIfc.xlsx</DependentUpon>
     </Compile>
@@ -372,6 +377,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Sinapi\Frm_DetalhesComposicao.resx">
+      <DependentUpon>Frm_DetalhesComposicao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sinapi\Frm_SelecionarItemsSinapi.resx">
       <DependentUpon>Frm_SelecionarItemsSinapi.cs</DependentUpon>
     </EmbeddedResource>
@@ -420,6 +428,7 @@
       <DependentUpon>wsTbd.cs</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

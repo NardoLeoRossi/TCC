@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.LBL_Referência = new System.Windows.Forms.Label();
-            this.Lbl_Area = new System.Windows.Forms.Label();
-            this.Txt_Area = new System.Windows.Forms.TextBox();
+            this.Lbl_AreaXY = new System.Windows.Forms.Label();
+            this.Txt_AreaXY = new System.Windows.Forms.TextBox();
             this.Lbl_Volume = new System.Windows.Forms.Label();
             this.Txt_Volume = new System.Windows.Forms.TextBox();
             this.Lbl_Altura = new System.Windows.Forms.Label();
@@ -43,19 +43,8 @@
             this.Lbl_Manual = new System.Windows.Forms.Label();
             this.Txt_Manual = new System.Windows.Forms.TextBox();
             this.Btn_Add = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.Cbb_AnaliticaTipo = new System.Windows.Forms.ComboBox();
-            this.Cbb_AnaliticaClasse = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Pnl_Analiticas = new System.Windows.Forms.Panel();
-            this.Lst_Analiticas = new System.Windows.Forms.ListView();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Btn_DetalharComposicao = new System.Windows.Forms.Button();
             this.Cbb_SinteticaTipo = new System.Windows.Forms.ComboBox();
             this.Cbb_SinteticaClasse = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -76,7 +65,10 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MultiTab = new System.Windows.Forms.TabControl();
-            this.tabPage3.SuspendLayout();
+            this.Lbl_AreaXZ = new System.Windows.Forms.Label();
+            this.Txt_AreaXZ = new System.Windows.Forms.TextBox();
+            this.Lbl_AreaYZ = new System.Windows.Forms.Label();
+            this.Txt_AreaYZ = new System.Windows.Forms.TextBox();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.MultiTab.SuspendLayout();
@@ -101,32 +93,32 @@
             this.LBL_Referência.TabIndex = 1;
             this.LBL_Referência.Text = "------";
             // 
-            // Lbl_Area
+            // Lbl_AreaXY
             // 
-            this.Lbl_Area.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Lbl_Area.BackColor = System.Drawing.Color.White;
-            this.Lbl_Area.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Lbl_Area.Location = new System.Drawing.Point(4, 655);
-            this.Lbl_Area.Name = "Lbl_Area";
-            this.Lbl_Area.Size = new System.Drawing.Size(100, 13);
-            this.Lbl_Area.TabIndex = 2;
-            this.Lbl_Area.Text = "Área";
-            this.Lbl_Area.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Lbl_AreaXY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Lbl_AreaXY.BackColor = System.Drawing.Color.White;
+            this.Lbl_AreaXY.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Lbl_AreaXY.Location = new System.Drawing.Point(4, 655);
+            this.Lbl_AreaXY.Name = "Lbl_AreaXY";
+            this.Lbl_AreaXY.Size = new System.Drawing.Size(100, 13);
+            this.Lbl_AreaXY.TabIndex = 2;
+            this.Lbl_AreaXY.Text = "Área X-Y";
+            this.Lbl_AreaXY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Txt_Area
+            // Txt_AreaXY
             // 
-            this.Txt_Area.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Txt_Area.Location = new System.Drawing.Point(4, 670);
-            this.Txt_Area.Name = "Txt_Area";
-            this.Txt_Area.Size = new System.Drawing.Size(100, 20);
-            this.Txt_Area.TabIndex = 3;
+            this.Txt_AreaXY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Txt_AreaXY.Location = new System.Drawing.Point(4, 670);
+            this.Txt_AreaXY.Name = "Txt_AreaXY";
+            this.Txt_AreaXY.Size = new System.Drawing.Size(100, 20);
+            this.Txt_AreaXY.TabIndex = 3;
             // 
             // Lbl_Volume
             // 
             this.Lbl_Volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Lbl_Volume.BackColor = System.Drawing.Color.White;
             this.Lbl_Volume.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Lbl_Volume.Location = new System.Drawing.Point(110, 655);
+            this.Lbl_Volume.Location = new System.Drawing.Point(336, 655);
             this.Lbl_Volume.Name = "Lbl_Volume";
             this.Lbl_Volume.Size = new System.Drawing.Size(100, 13);
             this.Lbl_Volume.TabIndex = 2;
@@ -136,7 +128,7 @@
             // Txt_Volume
             // 
             this.Txt_Volume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Txt_Volume.Location = new System.Drawing.Point(110, 670);
+            this.Txt_Volume.Location = new System.Drawing.Point(336, 670);
             this.Txt_Volume.Name = "Txt_Volume";
             this.Txt_Volume.Size = new System.Drawing.Size(100, 20);
             this.Txt_Volume.TabIndex = 3;
@@ -146,7 +138,7 @@
             this.Lbl_Altura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Lbl_Altura.BackColor = System.Drawing.Color.White;
             this.Lbl_Altura.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Lbl_Altura.Location = new System.Drawing.Point(216, 655);
+            this.Lbl_Altura.Location = new System.Drawing.Point(442, 655);
             this.Lbl_Altura.Name = "Lbl_Altura";
             this.Lbl_Altura.Size = new System.Drawing.Size(100, 12);
             this.Lbl_Altura.TabIndex = 2;
@@ -156,7 +148,7 @@
             // Txt_Altura
             // 
             this.Txt_Altura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Txt_Altura.Location = new System.Drawing.Point(216, 670);
+            this.Txt_Altura.Location = new System.Drawing.Point(442, 670);
             this.Txt_Altura.Name = "Txt_Altura";
             this.Txt_Altura.Size = new System.Drawing.Size(100, 20);
             this.Txt_Altura.TabIndex = 3;
@@ -166,7 +158,7 @@
             this.Lbl_Comprimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Lbl_Comprimento.BackColor = System.Drawing.Color.White;
             this.Lbl_Comprimento.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Lbl_Comprimento.Location = new System.Drawing.Point(322, 655);
+            this.Lbl_Comprimento.Location = new System.Drawing.Point(548, 655);
             this.Lbl_Comprimento.Name = "Lbl_Comprimento";
             this.Lbl_Comprimento.Size = new System.Drawing.Size(100, 13);
             this.Lbl_Comprimento.TabIndex = 2;
@@ -176,7 +168,7 @@
             // Txt_Comprimento
             // 
             this.Txt_Comprimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Txt_Comprimento.Location = new System.Drawing.Point(322, 670);
+            this.Txt_Comprimento.Location = new System.Drawing.Point(548, 670);
             this.Txt_Comprimento.Name = "Txt_Comprimento";
             this.Txt_Comprimento.Size = new System.Drawing.Size(100, 20);
             this.Txt_Comprimento.TabIndex = 3;
@@ -186,7 +178,7 @@
             this.Lbl_Espessura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Lbl_Espessura.BackColor = System.Drawing.Color.White;
             this.Lbl_Espessura.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Lbl_Espessura.Location = new System.Drawing.Point(428, 655);
+            this.Lbl_Espessura.Location = new System.Drawing.Point(654, 655);
             this.Lbl_Espessura.Name = "Lbl_Espessura";
             this.Lbl_Espessura.Size = new System.Drawing.Size(100, 13);
             this.Lbl_Espessura.TabIndex = 2;
@@ -196,7 +188,7 @@
             // Txt_Espessura
             // 
             this.Txt_Espessura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Txt_Espessura.Location = new System.Drawing.Point(428, 670);
+            this.Txt_Espessura.Location = new System.Drawing.Point(654, 670);
             this.Txt_Espessura.Name = "Txt_Espessura";
             this.Txt_Espessura.Size = new System.Drawing.Size(100, 20);
             this.Txt_Espessura.TabIndex = 3;
@@ -206,7 +198,7 @@
             this.Lbl_Manual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Lbl_Manual.BackColor = System.Drawing.Color.White;
             this.Lbl_Manual.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Lbl_Manual.Location = new System.Drawing.Point(537, 655);
+            this.Lbl_Manual.Location = new System.Drawing.Point(763, 655);
             this.Lbl_Manual.Name = "Lbl_Manual";
             this.Lbl_Manual.Size = new System.Drawing.Size(100, 13);
             this.Lbl_Manual.TabIndex = 2;
@@ -216,7 +208,7 @@
             // Txt_Manual
             // 
             this.Txt_Manual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Txt_Manual.Location = new System.Drawing.Point(537, 670);
+            this.Txt_Manual.Location = new System.Drawing.Point(763, 670);
             this.Txt_Manual.Name = "Txt_Manual";
             this.Txt_Manual.Size = new System.Drawing.Size(100, 20);
             this.Txt_Manual.TabIndex = 3;
@@ -232,115 +224,9 @@
             this.Btn_Add.UseVisualStyleBackColor = true;
             this.Btn_Add.Click += new System.EventHandler(this.Btn_Add_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.Cbb_AnaliticaTipo);
-            this.tabPage3.Controls.Add(this.Cbb_AnaliticaClasse);
-            this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.Pnl_Analiticas);
-            this.tabPage3.Controls.Add(this.Lst_Analiticas);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(992, 594);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Composições Analiticas";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // Cbb_AnaliticaTipo
-            // 
-            this.Cbb_AnaliticaTipo.FormattingEnabled = true;
-            this.Cbb_AnaliticaTipo.Location = new System.Drawing.Point(311, 23);
-            this.Cbb_AnaliticaTipo.Name = "Cbb_AnaliticaTipo";
-            this.Cbb_AnaliticaTipo.Size = new System.Drawing.Size(350, 21);
-            this.Cbb_AnaliticaTipo.TabIndex = 9;
-            // 
-            // Cbb_AnaliticaClasse
-            // 
-            this.Cbb_AnaliticaClasse.FormattingEnabled = true;
-            this.Cbb_AnaliticaClasse.Location = new System.Drawing.Point(5, 23);
-            this.Cbb_AnaliticaClasse.Name = "Cbb_AnaliticaClasse";
-            this.Cbb_AnaliticaClasse.Size = new System.Drawing.Size(300, 21);
-            this.Cbb_AnaliticaClasse.TabIndex = 10;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(314, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Tipo";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Classe";
-            // 
-            // Pnl_Analiticas
-            // 
-            this.Pnl_Analiticas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Pnl_Analiticas.Location = new System.Drawing.Point(5, 50);
-            this.Pnl_Analiticas.Name = "Pnl_Analiticas";
-            this.Pnl_Analiticas.Size = new System.Drawing.Size(975, 30);
-            this.Pnl_Analiticas.TabIndex = 8;
-            // 
-            // Lst_Analiticas
-            // 
-            this.Lst_Analiticas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Lst_Analiticas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader11,
-            this.columnHeader12,
-            this.columnHeader13,
-            this.columnHeader14,
-            this.columnHeader15});
-            this.Lst_Analiticas.FullRowSelect = true;
-            this.Lst_Analiticas.GridLines = true;
-            this.Lst_Analiticas.HideSelection = false;
-            this.Lst_Analiticas.Location = new System.Drawing.Point(5, 86);
-            this.Lst_Analiticas.MultiSelect = false;
-            this.Lst_Analiticas.Name = "Lst_Analiticas";
-            this.Lst_Analiticas.Size = new System.Drawing.Size(980, 500);
-            this.Lst_Analiticas.TabIndex = 7;
-            this.Lst_Analiticas.UseCompatibleStateImageBehavior = false;
-            this.Lst_Analiticas.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Código";
-            this.columnHeader11.Width = 92;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Descrição";
-            this.columnHeader12.Width = 596;
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "UN";
-            this.columnHeader13.Width = 50;
-            // 
-            // columnHeader14
-            // 
-            this.columnHeader14.Text = "Origem Preço";
-            this.columnHeader14.Width = 128;
-            // 
-            // columnHeader15
-            // 
-            this.columnHeader15.Text = "Custo Total";
-            this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader15.Width = 94;
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.Btn_DetalharComposicao);
             this.tabPage2.Controls.Add(this.Cbb_SinteticaTipo);
             this.tabPage2.Controls.Add(this.Cbb_SinteticaClasse);
             this.tabPage2.Controls.Add(this.label3);
@@ -352,8 +238,19 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(992, 594);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Composições Sintéticas";
+            this.tabPage2.Text = "Composições";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Btn_DetalharComposicao
+            // 
+            this.Btn_DetalharComposicao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_DetalharComposicao.Location = new System.Drawing.Point(887, 9);
+            this.Btn_DetalharComposicao.Name = "Btn_DetalharComposicao";
+            this.Btn_DetalharComposicao.Size = new System.Drawing.Size(93, 35);
+            this.Btn_DetalharComposicao.TabIndex = 4;
+            this.Btn_DetalharComposicao.Text = "Detalhar Composição";
+            this.Btn_DetalharComposicao.UseVisualStyleBackColor = true;
+            this.Btn_DetalharComposicao.Click += new System.EventHandler(this.Btn_DetalharComposicao_Click);
             // 
             // Cbb_SinteticaTipo
             // 
@@ -522,12 +419,51 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MultiTab.Controls.Add(this.tabPage1);
             this.MultiTab.Controls.Add(this.tabPage2);
-            this.MultiTab.Controls.Add(this.tabPage3);
             this.MultiTab.Location = new System.Drawing.Point(4, 25);
             this.MultiTab.Name = "MultiTab";
             this.MultiTab.SelectedIndex = 0;
             this.MultiTab.Size = new System.Drawing.Size(1000, 620);
             this.MultiTab.TabIndex = 1;
+            // 
+            // Lbl_AreaXZ
+            // 
+            this.Lbl_AreaXZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Lbl_AreaXZ.BackColor = System.Drawing.Color.White;
+            this.Lbl_AreaXZ.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Lbl_AreaXZ.Location = new System.Drawing.Point(110, 655);
+            this.Lbl_AreaXZ.Name = "Lbl_AreaXZ";
+            this.Lbl_AreaXZ.Size = new System.Drawing.Size(100, 13);
+            this.Lbl_AreaXZ.TabIndex = 2;
+            this.Lbl_AreaXZ.Text = "Área X-Z";
+            this.Lbl_AreaXZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Txt_AreaXZ
+            // 
+            this.Txt_AreaXZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Txt_AreaXZ.Location = new System.Drawing.Point(110, 670);
+            this.Txt_AreaXZ.Name = "Txt_AreaXZ";
+            this.Txt_AreaXZ.Size = new System.Drawing.Size(100, 20);
+            this.Txt_AreaXZ.TabIndex = 3;
+            // 
+            // Lbl_AreaYZ
+            // 
+            this.Lbl_AreaYZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Lbl_AreaYZ.BackColor = System.Drawing.Color.White;
+            this.Lbl_AreaYZ.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Lbl_AreaYZ.Location = new System.Drawing.Point(216, 655);
+            this.Lbl_AreaYZ.Name = "Lbl_AreaYZ";
+            this.Lbl_AreaYZ.Size = new System.Drawing.Size(100, 13);
+            this.Lbl_AreaYZ.TabIndex = 2;
+            this.Lbl_AreaYZ.Text = "Área Y-Z";
+            this.Lbl_AreaYZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Txt_AreaYZ
+            // 
+            this.Txt_AreaYZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Txt_AreaYZ.Location = new System.Drawing.Point(216, 670);
+            this.Txt_AreaYZ.Name = "Txt_AreaYZ";
+            this.Txt_AreaYZ.Size = new System.Drawing.Size(100, 20);
+            this.Txt_AreaYZ.TabIndex = 3;
             // 
             // Frm_SelecionarItemsSinapi
             // 
@@ -545,15 +481,17 @@
             this.Controls.Add(this.Lbl_Altura);
             this.Controls.Add(this.Txt_Volume);
             this.Controls.Add(this.Lbl_Volume);
-            this.Controls.Add(this.Txt_Area);
-            this.Controls.Add(this.Lbl_Area);
+            this.Controls.Add(this.Txt_AreaYZ);
+            this.Controls.Add(this.Lbl_AreaYZ);
+            this.Controls.Add(this.Txt_AreaXZ);
+            this.Controls.Add(this.Lbl_AreaXZ);
+            this.Controls.Add(this.Txt_AreaXY);
+            this.Controls.Add(this.Lbl_AreaXY);
             this.Controls.Add(this.LBL_Referência);
             this.Controls.Add(this.MultiTab);
             this.Controls.Add(this.label1);
             this.Name = "Frm_SelecionarItemsSinapi";
             this.Text = "Composições SIPANI";
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -566,8 +504,8 @@
         #endregion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LBL_Referência;
-        private System.Windows.Forms.Label Lbl_Area;
-        private System.Windows.Forms.TextBox Txt_Area;
+        private System.Windows.Forms.Label Lbl_AreaXY;
+        private System.Windows.Forms.TextBox Txt_AreaXY;
         private System.Windows.Forms.Label Lbl_Volume;
         private System.Windows.Forms.TextBox Txt_Volume;
         private System.Windows.Forms.Label Lbl_Altura;
@@ -579,18 +517,6 @@
         private System.Windows.Forms.Label Lbl_Manual;
         private System.Windows.Forms.TextBox Txt_Manual;
         private System.Windows.Forms.Button Btn_Add;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.ComboBox Cbb_AnaliticaTipo;
-        private System.Windows.Forms.ComboBox Cbb_AnaliticaClasse;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel Pnl_Analiticas;
-        private System.Windows.Forms.ListView Lst_Analiticas;
-        private System.Windows.Forms.ColumnHeader columnHeader11;
-        private System.Windows.Forms.ColumnHeader columnHeader12;
-        private System.Windows.Forms.ColumnHeader columnHeader13;
-        private System.Windows.Forms.ColumnHeader columnHeader14;
-        private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ComboBox Cbb_SinteticaTipo;
         private System.Windows.Forms.ComboBox Cbb_SinteticaClasse;
@@ -612,5 +538,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.TabControl MultiTab;
+        private System.Windows.Forms.Button Btn_DetalharComposicao;
+        private System.Windows.Forms.Label Lbl_AreaXZ;
+        private System.Windows.Forms.TextBox Txt_AreaXZ;
+        private System.Windows.Forms.Label Lbl_AreaYZ;
+        private System.Windows.Forms.TextBox Txt_AreaYZ;
     }
 }

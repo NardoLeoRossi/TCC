@@ -20,19 +20,21 @@ namespace OrcamentosIfc
 
         public DbSet<Insumo> Insumos { get; set; }
 
-        public DbSet<ComposicaoSintetica> ComposicoesSinteticas { get; set; }
+        public DbSet<Composicao> Composicoes { get; set; }
 
-        public DbSet<ComposicaoAnalitica> ComposicoesAnaliticas { get; set; }
+        public DbSet<ComposicaoItens> ComposicoesItens { get; set; }
 
         public DbSet<ElementoProjeto> ElementosProjeto { get; set;}
 
-        public DbSet<ElementoComposicaoAnalitica> ElementoComposicaoAnalitica { get; set; }
-
-        public DbSet<ElementoComposicaoSintetica> ElementoComposicaoSintetica { get; set; }
+        public DbSet<ElementoComposicao> ElementoComposicao { get; set; }
 
         public DbSet<ElementoInsumo> ElementoInsumo { get; set; }
 
         public DbSet<VisaoGrafica> ItensVisaoGrafica { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VisaoGrafica>().HasNoKey();
+        }
     }
 }

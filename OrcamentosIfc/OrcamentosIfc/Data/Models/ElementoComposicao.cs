@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrcamentosIfc.Data.Models
 {
-    public class ElementoInsumo
+    public class ElementoComposicao
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,7 +18,7 @@ namespace OrcamentosIfc.Data.Models
         public int ElementoId { get; set; }
 
         [Required]
-        public string InsumoCodigo{ get; set; }
+        public string ComposicaoCodigo{ get; set; }
 
         [Required]
         public string Dimensao { get; set; }
@@ -31,12 +31,12 @@ namespace OrcamentosIfc.Data.Models
         public ElementoProjeto ElementoProjeto { get; set; }
 
         [NotMapped]
-        public Insumo Insumo { get; set; }
+        public Composicao Composicao { get; set; }
 
-        public void LoadInsumo()
+        public void LoadComposicao()
         {
-            Insumo = Parametros.AppDbContext.Insumos.FirstOrDefault(i => i.Codigo == InsumoCodigo
-                                                                                && i.Prefixo == Parametros.PeriodoSinapiSelecionado);
+            Composicao = Parametros.AppDbContext.Composicoes.FirstOrDefault(c => c.CodigoComposicao == ComposicaoCodigo
+                                                                                && c.Prefixo == Parametros.PeriodoSinapiSelecionado);
         }
     }
 }

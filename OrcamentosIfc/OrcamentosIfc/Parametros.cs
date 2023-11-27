@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OfficeOpenXml;
 using System.Windows.Controls.Primitives;
+using OrcamentosIfc.Data.Models;
 
 namespace OrcamentosIfc
 {
@@ -23,6 +24,7 @@ namespace OrcamentosIfc
             set
             {
                 _periodoSinapiSelecionado = value;
+                AtualizarVisaoGrafica();
             }
         }
 
@@ -50,7 +52,6 @@ namespace OrcamentosIfc
 
         public static void AtualizarVisaoGrafica()
         {
-            var itens = AppDbContext.ItensVisaoGrafica.Where(x => x.Nome_Projeto.ToUpper().Equals(ProjetoSelecionado.ToUpper())).ToList();
 
             //Apagar os dados anteriores
             foreach (ListObject lb in Globals.wsTbDados.ListObjects)
@@ -59,6 +60,18 @@ namespace OrcamentosIfc
                 {
                     lb.DataBodyRange.Clear();
                 }
+            }
+            Globals.ThisWorkbook.RefreshAll();
+
+            List<VisaoGrafica> itens;
+            try
+            {
+                itens = AppDbContext.ItensVisaoGrafica.ToList();
+                itens = itens.Where(x => x.NomeProjeto == ProjetoSelecionado && x.Prefixo == PeriodoSinapiSelecionado).ToList();
+            }
+            catch
+            {
+                return;
             }
 
             if (itens.Count == 0)
@@ -74,17 +87,16 @@ namespace OrcamentosIfc
             foreach (var item in itens)
             {
                 dados[i, 0] = item.Tipo;
-                dados[i, 1] = item.Nome_Projeto;
-                dados[i, 2] = item.Nome_Elemento;
-                dados[i, 3] = item.Descricao_Item_Sinapi;
+                dados[i, 1] = item.NomeProjeto;
+                dados[i, 2] = item.NomeElementoIfc;
+                dados[i, 3] = item.Descricao;
                 dados[i, 4] = item.Unidade;
-                dados[i, 5] = item.Dimensao_Associada;
+                dados[i, 5] = item.Dimensao;
                 dados[i, 6] = item.Quantidade;
-                dados[i, 7] = item.Preco_Unitario;
-                dados[i, 8] = item.Preco_Total;
+                dados[i, 7] = item.Preco;
+                dados[i, 8] = item.PrecoTotal;
                 i++;
             }
-
 
             // Descarregar os dados
             Range startCell = Globals.wsTbDados.Cells[2, 1];
