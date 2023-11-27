@@ -50,7 +50,7 @@ namespace OrcamentosIfc.IFC
                     ep.LoadCustos();
 
                     //Carregar o elemento
-                    var elementoIfc = model.Instances.FirstOrDefault<IfcElement>(x => x.EntityLabel.ToString().ToUpper() == ep.IfcId.ToUpper());
+                    var elementoIfc = model.Instances.FirstOrDefault<IfcElement>(x => x.GlobalId.ToString().ToUpper() == ep.IfcId.ToUpper());
 
                     //Criar o relacionamento de propriedades
                     var rel = model.Instances.New<IfcRelDefinesByProperties>();
