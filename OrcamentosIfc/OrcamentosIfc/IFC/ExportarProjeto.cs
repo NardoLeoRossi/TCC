@@ -35,10 +35,9 @@ namespace OrcamentosIfc.IFC
             var model = IfcStore.Open(path);
 
             //Capturar os elementos com itens de custo relacionados
-            var elementos = Parametros.AppDbContext.ElementosProjeto
-                                            .Include(x => x.Insumos)
-                                            .Include(x => x.Composicoes)
-                                            .Where(x => x.NomeProjeto.ToUpper() == Parametros.ProjetoSelecionado.ToUpper()).ToList();
+            var elementos = Parametros.AppDbContext.ElementosProjeto.Where(x => x.NomeProjeto.ToUpper() == Parametros.ProjetoSelecionado.ToUpper()).ToList();
+
+            elementos.ForEach(x => x.LoadCustos());
 
             //Criar uma transaçaõ de alteração no modelo IFC
             using (var tr = model.BeginTransaction("Exportar Projeto"))

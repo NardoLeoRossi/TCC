@@ -137,7 +137,7 @@ namespace OrcamentosIfc.Sinapi
                 var rowsSize = Path.GetExtension(path).ToUpper().Equals("XLSX") ? "1048576" : "65536";
 
                 conn.Open();
-                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A7:L{rowsSize}]", conn);
+                OleDbCommand cmd = new OleDbCommand($"SELECT * FROM [{GetTableName(conn)}A6:L{rowsSize}]", conn);
                 using (OleDbDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
